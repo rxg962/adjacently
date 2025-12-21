@@ -142,20 +142,3 @@ function draw() {
   }
 
 }
-
-function keyPressed() {
-  if (key == " ") {
-    bomb = new Bomb();
-    bomb.update();
-    bomb.show();
-    
-  }
-  if(key == "g"){
-    inputArr.push("H");
-    inputArr.push("E");
-    inputArr.push("L");
-    inputArr.push("L");
-    inputArr.push("O");
-    newGuess();
-  }
-}
