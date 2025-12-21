@@ -64,7 +64,7 @@ async function setup() {
   //  gameWidth = windowWidth - 20;
   //}
 
-  gamewidth = windowWidth - 20;
+  gameWidth = windowWidth - 20;
   createCanvas(gameWidth, windowHeight - 100);
 
   if (height === 0) {
