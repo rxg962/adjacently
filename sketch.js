@@ -59,10 +59,12 @@ let bombExploded = false;
 
 async function setup() {
   //CREATE CANVAS
-  gameWidth = 500;
-  if (windowWidth < gameWidth) {
-    gameWidth = windowWidth - 20;
-  }
+ // gameWidth = 500;
+ // if (windowWidth < gameWidth) {
+  //  gameWidth = windowWidth - 20;
+  //}
+
+  gamewidth = windowWidth - 20;
   createCanvas(gameWidth, windowHeight - 100);
   gameHeight = (2 * height) / 3;
 
