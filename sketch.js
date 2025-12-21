@@ -66,7 +66,8 @@ async function setup() {
 
   createCanvas(gameWidth, windowHeight);
 
-  pixelDensity(1); 
+  //pixelDensity(1); 
+   pixelDensity(window.devicePixelRatio);
   
   
   gameHeight = (2 * height) / 3;
