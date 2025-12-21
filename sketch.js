@@ -71,7 +71,7 @@ async function setup() {
   resizeCanvas(gameWidth, window.innerHeight - 100);
 }
   
-  gameHeight = (2 * height) / 3;
+ setupLayout();
 
   textFont("Outfit");
 
@@ -79,16 +79,13 @@ async function setup() {
 
   getColours();
 
-  w = floor(gameWidth / 5);
-  h = floor(gameHeight / totalGuesses);
-  guessY = gameHeight - h;
+  
 
   fallingBlocks.push(new FallingBlock());
 
   makeKeyboard();
 
-  buttonW = width / 2;
-  buttonH = (2 * ((2 * height) / 3)) / 7;
+ 
 
   helpImg = await loadImage("helpscreen1.png");
 
@@ -168,4 +165,15 @@ function keyPressed(){
     inputArr.push("O");
     newGuess();
   }
+}
+
+function setupLayout(){
+   gameHeight = (2 * height) / 3;
+
+  w = floor(gameWidth / 5);
+  h = floor(gameHeight / totalGuesses);
+  guessY = gameHeight - h;
+
+   buttonW = width / 2;
+  buttonH = (2 * ((2 * height) / 3)) / 7;
 }
