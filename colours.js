@@ -1,5 +1,5 @@
 function getColours() {
-  redC = color(255, 58, 32);
+  redC = color(225, 20, 23);
   yellowC = color(221, 198, 123);
   greenC = color(77, 139, 49);
   blueC = color(58, 174, 216);
