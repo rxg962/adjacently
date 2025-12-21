@@ -61,10 +61,10 @@ async function setup() {
   //CREATE CANVAS
   gameWidth = 500;
   if (windowWidth < gameWidth) {
-    gameWidth = windowWidth - 20;
+    gameWidth = windowWidth;
   }
 
-  createCanvas(gameWidth, windowHeight - 100);
+  createCanvas(gameWidth, windowHeight);
 
   pixelDensity(1); 
   
