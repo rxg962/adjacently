@@ -150,9 +150,6 @@ function keyPressed() {
     bomb.show();
     
   }
-}
-
-function keyPressed(){
   if(key == "g"){
     inputArr.push("H");
     inputArr.push("E");
