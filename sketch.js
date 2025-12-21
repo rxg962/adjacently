@@ -64,6 +64,8 @@ async function setup() {
     gameWidth = windowWidth - 20;
   }
 createCanvas(gameWidth, windowHeight - 100);
+
+   pixelDensity(1); 
   
   gameHeight = (2 * height) / 3;
 
