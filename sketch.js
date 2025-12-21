@@ -59,23 +59,15 @@ let bombExploded = false;
 
 async function setup() {
   //CREATE CANVAS
-  //gameWidth = 500;
-  //if (windowWidth < gameWidth) {
-  //  gameWidth = windowWidth - 20;
-  //}
+  gameWidth = 500;
+  if (windowWidth < gameWidth) {
+    gameWidth = windowWidth - 20;
+  }
 
-  //createCanvas(gameWidth, windowHeight - 100);
+  createCanvas(gameWidth, windowHeight - 100);
 
-  //pixelDensity(1); 
+  pixelDensity(1); 
   
- gameWidth = windowWidth;    // full width of device
-  gameHeight = windowHeight;  // full height (or some fraction if you want)
-
-  createCanvas(gameWidth, gameHeight);
-
-  pixelDensity(1); // optional, helps keep canvas resolution consistent
-  
-
   
   gameHeight = (2 * height) / 3;
 
