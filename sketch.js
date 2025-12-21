@@ -65,7 +65,7 @@ async function setup() {
   //}
 
   gamewidth = windowWidth - 20;
-  createCanvas(gameWidth, windowHeight - 100);
+  await createCanvas(gameWidth, windowHeight - 100);
   gameHeight = (2 * height) / 3;
 
   textFont("Outfit");
