@@ -63,11 +63,11 @@ let expertMode = false;
 
 async function setup() {
   //CREATE CANVAS
-  gameWidth = 500;
-  if (windowWidth < gameWidth) {
-    gameWidth = windowWidth;
-  }
-  createCanvas(gameWidth, windowHeight - 75);
+  gameWidth = windowWidth;
+  //if (windowWidth < gameWidth) {
+  //  gameWidth = windowWidth;
+  //}
+  createCanvas(gameWidth, windowHeight);
   gameHeight = (2 * height) / 3;
 
   pixelDensity(window.devicePixelRatio);
