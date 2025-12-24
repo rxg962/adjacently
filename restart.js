@@ -34,7 +34,6 @@ function restart() {
   bombExplodedTime = undefined;
   bombExploded = false;
 
-
   for (let k of letterKeys) {
     k.state = "default";
   }
@@ -62,11 +61,7 @@ function restartMenu() {
     txtFillC = redC;
   }
 
-  let textHeight = textAscent() + textDescent();
-  let textX = width / 4;
-  let text1Y = height - (3 * (height - dividingLineH)) / 4 + textHeight / 2;
-  let text2Y = height - (height - dividingLineH) / 2 + textHeight / 2;
-
+  textAlign(CENTER, CENTER);
   text1Size = 64;
   textSize(text1Size);
   while (textWidth(txt1) > playAgButton.w / 3 && text1Size > 0) {
@@ -79,6 +74,11 @@ function restartMenu() {
     text2Size -= 1;
     textSize(text2Size);
   }
+
+  let textX = width / 4;
+  let buffer = width/30;
+  let text1Y = height - (3 * (height - dividingLineH)) / 4 + buffer; // + textHeight / 2;
+  let text2Y = height - (height - dividingLineH) / 2 + buffer; // + textHeight / 2;
 
   if (!restartTextsCreated) {
     restartTxtRect = new restartTextRect(txtStrokeC);

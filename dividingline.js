@@ -3,7 +3,6 @@ function dividingline() {
   noStroke();
   rectMode(CORNER);
   let gameHei = gameHeight;
-  gameHei = gameHei; // + gameHei/20;
   let keyboardOffset = height / 81;
   dividingLineH = (gameHei + keyboardTop) / 2;
   if (gamestate != "startmenu") {

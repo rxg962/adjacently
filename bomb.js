@@ -11,7 +11,12 @@ class Bomb {
     this.startX = x;
     this.vel = createVector(0, 0);
     this.acc = createVector(0, 0.001);
-    this.minHeight = floor(random(5,8)) * h + h/2;
+    if(!expertMode){
+      
+    } else{
+      this.minHeight = floor(random(2,6)) * h + h/2;
+    }
+    
     this.gravity = createVector(0, height * 0.00003);
     this.exploded = false;
     this.burst = false;

@@ -164,7 +164,7 @@ function shootFireworks() {
     restartMenu();
   }
   
-    console.log(fireworks.length);
+    // console.log(fireworks.length);
 
 
 

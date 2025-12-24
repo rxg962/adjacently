@@ -43,19 +43,23 @@ let startmenuButtons = [];
 let dividingLineH;
 let dailytxt = "Daily";
 let infinitetxt = "Infinite";
+let experttxt = "Expert";
 let playAgButton;
 let hButton, exButton;
 let helpScreenShowing = false;
-let helpImg;
 let txt1, txt2, txtStrokeC, txtFillC, text1Size, text2Size;
 let restartTexts = [];
 let restartTextsCreated = false;
 let restartMenuShowing = false;
 let failFireworks = [];
 let bombs = [];
-  let bombDropped = false;
+let bombDropped = false;
 let bombExplodedTime;
 let bombExploded = false;
+let expertMode = false;
+// let vibrateOn = 1;
+// let hasVibrated = false;
+
 
 async function setup() {
   //CREATE CANVAS
@@ -63,14 +67,10 @@ async function setup() {
   if (windowWidth < gameWidth) {
     gameWidth = windowWidth;
   }
-
-  createCanvas(gameWidth, windowHeight);
-
-  //pixelDensity(1); 
-   pixelDensity(window.devicePixelRatio);
-  
-  
+  createCanvas(gameWidth, windowHeight - 75);
   gameHeight = (2 * height) / 3;
+
+  pixelDensity(window.devicePixelRatio);
 
   textFont("Outfit");
 
@@ -87,15 +87,16 @@ async function setup() {
   makeKeyboard();
 
   buttonW = width / 2;
-  buttonH = (2 * ((2 * height) / 3)) / 7;
-
-  helpImg = await loadImage("helpscreen1.png");
+  buttonH = ( 1.75* ((2 * height) / 3)) / 7;
 
   gamestate = "startmenu";
   gameStartMenu();
 
   dividingline();
   playAgButton = new playAgainButton();
+
+  //HELPSCREEN
+  setupHelpscreen();
 }
 
 function draw() {
@@ -132,6 +133,7 @@ function draw() {
   if (gamestate == "startmenu") {
     fallingBlock();
     hButton.show();
+    // vButton.show();
 
     for (let b of startmenuButtons) {
       b.show();
@@ -141,10 +143,28 @@ function draw() {
   if (helpScreenShowing) {
     helpScreen();
   }
-  
-  for (let b of bombs){
+
+  for (let b of bombs) {
     b.update();
     b.show();
   }
+  
+  // hasVibrated = false;
+}
 
+function keyPressed() {
+  if (key == " ") {
+    let bomb = new Bomb();
+    bomb.update();
+    bomb.show();
+  }
+
+  if (key == "g") {
+    inputArr.push("H");
+    inputArr.push("E");
+    inputArr.push("L");
+    inputArr.push("L");
+    inputArr.push("O");
+    newGuess();
+  }
 }

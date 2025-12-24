@@ -4,6 +4,7 @@ function screenInteract() {
       b.keyPressed();
     }
     hButton.keyPressed();
+    // vButton.keyPressed();
   }
 
   if (gamestate == "startmenu" && helpScreenShowing) {
