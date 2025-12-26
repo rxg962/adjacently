@@ -32,6 +32,11 @@ function mousePressed() {
 }
 
 function touchStarted() {
-  screenInteract(mouseX, mouseY);
+  screenInteract(touches[0].x, touches[0].y);
+  return false;
+}
+
+function touchEnded() {
+  screenInteract(touches[0].x, touches[0].y);
   return false;
 }

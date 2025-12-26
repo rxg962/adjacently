@@ -134,10 +134,10 @@ function makeKeyboard() {
 
   //FUNCTION BUTTONS
 
-  let enterX = width / 12 + width / 15 + (7 * (width - width / 75)) / 10;
+  let enterX = width / 12 + width / 15 + (7.1 * (width - width / 75)) / 10;
   let enterY = keyboardTop + 2 * keyboardGap;
   functionKeys.push(new functionKey(enterX, enterY, "Enter"));
-  let delX = width / 75;
+  let delX = keyW / 5;
   let delY = keyboardTop + 2 * keyboardGap;
   functionKeys.push(new functionKey(delX, delY, "Del"));
 

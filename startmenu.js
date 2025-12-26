@@ -1,9 +1,12 @@
+let titleImg;
+
 function gameStartMenu() {
   startmenuButtons.push(
     new startMenuButton(
       dailytxt,
       width / 2 - buttonW / 2,
-      floor(((2 * height) / 3) * (1 / 7)),
+      height * 0.2,
+      // floor(((2 * height) / 3) * (2 / 7)),
       buttonW,
       buttonH
     )
@@ -13,7 +16,8 @@ function gameStartMenu() {
     new startMenuButton(
       experttxt,
       width / 2 - buttonW / 2,
-      floor(((2 * height) / 3) * (3 / 7)),
+      height * 0.4,
+      // floor(((2 * height) / 3) * (4 / 7)),
       buttonW,
       buttonH
     )
@@ -23,7 +27,8 @@ function gameStartMenu() {
     new startMenuButton(
       infinitetxt,
       width / 2 - buttonW / 2,
-      floor(((2 * height) / 3) * (5 / 7)),
+      height * 0.6,
+      // floor(((2 * height) / 3) * (6 / 7)),
       buttonW,
       buttonH
     )
@@ -75,7 +80,7 @@ function gameStartMenu() {
     rect(i, (2 * height) / 3 - rectThickness, 1, rectThickness * 2);
   }
 
-  hButton = new helpButton(width / 2, (4 * height) / 5);
+  hButton = new helpButton(width / 2, height*0.8 + buttonW / 8);
 
   // vButton = new vibrateButton(2*width/3, 4*height/5);
 }
@@ -177,31 +182,28 @@ class startMenuButton {
   }
 }
 
-class vibrateButton {
+class helpButton {
   constructor(x, y) {
     this.x = x;
     this.y = y;
     this.r = buttonW / 8;
-    this.txt = "V";
-    this.bgcolour = undefined;
-    this.txtcolour = undefined;
+    this.txt = "?";
+    this.colour = undefined;
     this.pressed = false;
   }
 
   show() {
-    if (vibrateOn == 1) {
+    if (this.pressed) {
       navigator.vibrate(1);
-      this.bgcolour = blueC;
-      this.txtcolour = color(255);
+      this.colour = color(38, 151, 192);
     } else {
-      this.bgcolour = color(255);
-      this.txtcolour = blueC;
+      this.colour = blueC;
     }
 
-    fill(this.bgcolour);
+    fill(this.colour);
     noStroke();
     circle(this.x, this.y, this.r * 2);
-    fill(this.txtcolour);
+    fill(255);
     textSize(this.r);
     textAlign(CENTER, CENTER);
     text(this.txt, this.x, this.y);
@@ -217,7 +219,7 @@ class vibrateButton {
       this.pressed = true;
 
       setTimeout(() => {
-        vibrateOn *= -1;
+        helpScreenShowing = true;
       }, 100);
     }
 
@@ -225,4 +227,65 @@ class vibrateButton {
       this.pressed = false;
     }, 100);
   }
+}
+
+// class vibrateButton {
+//   constructor(x, y) {
+//     this.x = x;
+//     this.y = y;
+//     this.r = buttonW / 8;
+//     this.txt = "V";
+//     this.bgcolour = undefined;
+//     this.txtcolour = undefined;
+//     this.pressed = false;
+//   }
+
+//   show() {
+//     if (vibrateOn == 1) {
+//       navigator.vibrate(1);
+//       this.bgcolour = blueC;
+//       this.txtcolour = color(255);
+//     } else {
+//       this.bgcolour = color(255);
+//       this.txtcolour = blueC;
+//     }
+
+//     fill(this.bgcolour);
+//     noStroke();
+//     circle(this.x, this.y, this.r * 2);
+//     fill(this.txtcolour);
+//     textSize(this.r);
+//     textAlign(CENTER, CENTER);
+//     text(this.txt, this.x, this.y);
+//   }
+
+//   keyPressed() {
+//     if (
+//       mouseX > this.x - this.r &&
+//       mouseX < this.x + this.r &&
+//       mouseY > this.y - this.r &&
+//       mouseY < this.y + this.r
+//     ) {
+//       this.pressed = true;
+
+//       setTimeout(() => {
+//         vibrateOn *= -1;
+//       }, 100);
+//     }
+
+//     setTimeout(() => {
+//       this.pressed = false;
+//     }, 100);
+//   }
+// }
+
+function titleText() {
+  // fill(blueC);
+  // textSize(64);
+  // text("ADJACENTLY", width / 2, height*0.125 );
+  imageMode(CENTER);
+ image(titleImg,width/2, height*0.125);
+  // let imgX = (width - titleImg.width)/2;
+  // drawScaledImage(titleImg, imgX, height*0.05, 1);
+  
 }

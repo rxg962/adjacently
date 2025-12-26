@@ -1,73 +1,10 @@
-let guessWords = [],
-  targetWords = [];
-let blocks = [];
-let w, h;
-let letters = [];
-let target;
-let index = 0;
-let guessY;
-let guessWord;
-let totalGuesses = 10;
-let inputArr = [];
-let redC, yellowC, greenC, blueC, pinkC, greyC, lightredC, lightblueC;
-let targetIndex;
-let invalidWord = false;
-let timeNow;
-let gameStarted = false;
-let targetType;
-let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-let fallingBlocks = [];
-let fireworks = [];
-let fireworkcolours = [];
-let fireworkpinkC,
-  fireworkblueC,
-  fireworkpurpleC,
-  fireworkorangeC,
-  fireworkgreenC,
-  fireworkyellowC;
-let fireworkDelay;
-let fireworkCounter = 0;
-let score = 0;
-let lastFireworkTime = 0;
-let fireworksStarted = false;
-let gameWidth, gameHeight;
-let letterKeys = [];
-let functionKeys = [];
-let keyW, keyH;
-let buttonW, buttonH;
-let correctLetters = [];
-let incorrectLetters = [];
-let keyboardTop;
-let gameState;
-let startmenuButtons = [];
-let dividingLineH;
-let dailytxt = "Daily";
-let infinitetxt = "Infinite";
-let experttxt = "Expert";
-let playAgButton;
-let hButton, exButton;
-let helpScreenShowing = false;
-let txt1, txt2, txtStrokeC, txtFillC, text1Size, text2Size;
-let restartTexts = [];
-let restartTextsCreated = false;
-let restartMenuShowing = false;
-let failFireworks = [];
-let bombs = [];
-let bombDropped = false;
-let bombExplodedTime;
-let bombExploded = false;
-let expertMode = false;
-// let vibrateOn = 1;
-// let hasVibrated = false;
-
-
 async function setup() {
   //CREATE CANVAS
-  gameWidth = windowWidth;
-  //if (windowWidth < gameWidth) {
-  //  gameWidth = windowWidth;
-  //}
-  createCanvas(gameWidth, windowHeight);
+  gameWidth = 500;
+  if (windowWidth < gameWidth) {
+    gameWidth = windowWidth;
+  }
+  createCanvas(gameWidth, windowHeight - 75);
   gameHeight = (2 * height) / 3;
 
   pixelDensity(window.devicePixelRatio);
@@ -75,6 +12,12 @@ async function setup() {
   textFont("Outfit");
 
   await getWords();
+
+  titleImg = await loadImage("Adjacently.png");
+  let imgRatio = titleImg.width / titleImg.height;
+  let imgW = width * 0.8;
+  let imgH = titleImg.height / imgRatio;
+  titleImg.resize(imgW, imgH);
 
   getColours();
 
@@ -87,7 +30,7 @@ async function setup() {
   makeKeyboard();
 
   buttonW = width / 2;
-  buttonH = ( 1.75* ((2 * height) / 3)) / 7;
+  buttonH = (1.75 * ((2 * height) / 3)) / 7;
 
   gamestate = "startmenu";
   gameStartMenu();
@@ -133,6 +76,7 @@ function draw() {
   if (gamestate == "startmenu") {
     fallingBlock();
     hButton.show();
+    titleText();
     // vButton.show();
 
     for (let b of startmenuButtons) {
@@ -148,7 +92,7 @@ function draw() {
     b.update();
     b.show();
   }
-  
+
   // hasVibrated = false;
 }
 
