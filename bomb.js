@@ -12,7 +12,7 @@ class Bomb {
     this.vel = createVector(0, 0);
     this.acc = createVector(0, 0.001);
     if(!expertMode){
-      
+      this.minHeight = floor(random(3,8)) * h + h/2;
     } else{
       this.minHeight = floor(random(2,6)) * h + h/2;
     }
