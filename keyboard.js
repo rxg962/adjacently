@@ -133,6 +133,7 @@ function makeKeyboard() {
   keyboardTop = (2 * height) / 3 + (5 * height) / 81; // + 2*buttonH;
 
   //FUNCTION BUTTONS
+
   let enterX = 1.7 * keyW + keyW / 5 + 7 * (keyW + keyW / 5); 
   //let enterX = width / 12 + width / 15 + (7.1 * (width - width / 75)) / 10;
   let enterY = keyboardTop + 2 * keyboardGap;

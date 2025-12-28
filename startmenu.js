@@ -283,9 +283,41 @@ function titleText() {
   // fill(blueC);
   // textSize(64);
   // text("ADJACENTLY", width / 2, height*0.125 );
-  imageMode(CENTER);
- image(titleImg,width/2, height*0.125);
+ //  imageMode(CENTER);
+ // image(titleImg,width/2, height*0.125);
   // let imgX = (width - titleImg.width)/2;
   // drawScaledImage(titleImg, imgX, height*0.05, 1);
   
+ 
+  
+  for(let i = 0; i < title.length; i++){
+    titleTextBlocks.push(new TitleBlock(i, title[i]));
+  }
+  
+  
+  
+}
+
+class TitleBlock {
+  constructor(colNo, letter) {
+    let cols = 12;
+    this.w = floor(width / cols);
+    this.x = this.w + floor(colNo * this.w);
+   this.random = random(-10,10);
+    this.y = height*0.075 + this.random;
+    this.h = this.w;
+    this.letter = letter;
+  }
+
+  show() {
+    noStroke();
+     fill(blueC);
+    rectMode(CORNER);
+    rect(this.x, this.y, this.w, this.h, 5);
+    noStroke();
+    fill(255);
+    textSize(16);
+    textAlign(CENTER, CENTER);
+    text(this.letter, this.x + this.w / 2, this.y + this.h / 2);
+    }
 }

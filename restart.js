@@ -57,6 +57,8 @@ let bombDropped = false;
 let bombExplodedTime;
 let bombExploded = false;
 let expertMode = false;
+let titleTextBlocks = [];
+let title = ["A", "D", "J", "A", "C", "E", "N", "T", "L", "Y"];
 
 function restart() {
   blocks = [];
@@ -136,7 +138,7 @@ function restartMenu() {
   }
 
   let textX = width / 4;
-  let buffer = width/30;
+  let buffer = width / 30;
   let text1Y = height - (3 * (height - dividingLineH)) / 4 + buffer; // + textHeight / 2;
   let text2Y = height - (height - dividingLineH) / 2 + buffer; // + textHeight / 2;
 

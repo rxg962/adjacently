@@ -4,7 +4,7 @@ async function setup() {
   if (windowWidth < gameWidth) {
     gameWidth = windowWidth;
   }
-  createCanvas(gameWidth, windowHeight);
+  createCanvas(gameWidth, windowHeight - 75);
   gameHeight = (2 * height) / 3;
 
   pixelDensity(window.devicePixelRatio);
@@ -40,6 +40,8 @@ async function setup() {
 
   //HELPSCREEN
   setupHelpscreen();
+  
+  titleText();
 }
 
 function draw() {
@@ -76,7 +78,12 @@ function draw() {
   if (gamestate == "startmenu") {
     fallingBlock();
     hButton.show();
-    titleText();
+    
+    
+    for(let b of titleTextBlocks){
+    b.show();
+  }
+    
     // vButton.show();
 
     for (let b of startmenuButtons) {
