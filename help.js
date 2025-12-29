@@ -68,9 +68,7 @@ function helpScreen() {
  
   rectMode(CENTER);
   fill(255);
-  stroke(greyC);
-  strokeWeight(1);
-  rect(helpScreenX, helpScreenY, helpScreenW, helpScreenH);
+  rect(helpScreenX, helpScreenY, helpScreenW, helpScreenH, 20);
   backgroundRectangles();
 
   helpTopText();
@@ -387,21 +385,21 @@ function backgroundRectangles() {
   rect(
     width / 2,
     helpTop + (adjacentblockY / heightDivider) * helpScreenH,
-    helpScreenW - 1,
+    helpScreenW,
     h
   );
   //BLOCKS2
   rect(
     width / 2,
     helpTop + (notadjacentblockY / heightDivider) * helpScreenH,
-    helpScreenW - 1,
+    helpScreenW,
     h
   );
   //BLOCKS3
   rect(
     width / 2,
     helpTop + (notintargetblockY / heightDivider) * helpScreenH,
-    helpScreenW - 1,
+    helpScreenW,
     h
   );
 }
