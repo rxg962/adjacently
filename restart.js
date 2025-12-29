@@ -9,7 +9,17 @@ let guessY;
 let guessWord;
 let totalGuesses = 10;
 let inputArr = [];
-let redC, yellowC, greenC, blueC, pinkC, greyC, lightredC, lightblueC;
+let redC,
+  yellowC,
+  greenC,
+  blueC,
+  pinkC,
+  greyC,
+  lightredC,
+  lightblueC,
+  darkblueC,
+  darkpinkC,
+  darkredC;
 let targetIndex;
 let invalidWord = false;
 let timeNow;
@@ -59,6 +69,7 @@ let bombExploded = false;
 let expertMode = false;
 let titleTextBlocks = [];
 let title = ["A", "D", "J", "A", "C", "E", "N", "T", "L", "Y"];
+let hintScreenShowing = false;
 
 function restart() {
   blocks = [];
@@ -184,7 +195,7 @@ class playAgainButton {
     if (gamestate == "won") {
       if (this.pressed) {
         navigator.vibrate(1);
-        this.colour = color(229, 90, 162);
+        this.colour = darkpinkC;
       } else {
         this.colour = pinkC;
       }
@@ -193,15 +204,23 @@ class playAgainButton {
     if (gamestate == "lost") {
       if (this.pressed) {
         navigator.vibrate(1);
-        this.colour = color(238, 28, 0);
+        this.colour = darkredC;
       } else {
         this.colour = redC;
       }
     }
 
-    fill(this.colour);
     noStroke();
     rectMode(CENTER);
+
+    if (gamestate == "won") {
+      fill(darkpinkC);
+    } else if (gamestate == "lost") {
+      fill(darkredC);
+    }
+
+    rect(this.x + shadowSize, this.y + shadowSize, this.w, this.h, 20);
+    fill(this.colour);
     rect(this.x, this.y, this.w, this.h, 20);
     fill(255);
     textSize(width / 12);

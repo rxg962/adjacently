@@ -1,33 +1,34 @@
 let titleImg;
+let shadowSize;
 
 function gameStartMenu() {
   startmenuButtons.push(
     new startMenuButton(
       dailytxt,
       width / 2 - buttonW / 2,
-      height * 0.2,
+      height * 0.3,
       // floor(((2 * height) / 3) * (2 / 7)),
       buttonW,
       buttonH
     )
   );
 
-  startmenuButtons.push(
-    new startMenuButton(
-      experttxt,
-      width / 2 - buttonW / 2,
-      height * 0.4,
-      // floor(((2 * height) / 3) * (4 / 7)),
-      buttonW,
-      buttonH
-    )
-  );
+  //   startmenuButtons.push(
+  //     new startMenuButton(
+  //       experttxt,
+  //       width / 2 - buttonW / 2,
+  //       height * 0.4,
+  //       // floor(((2 * height) / 3) * (4 / 7)),
+  //       buttonW,
+  //       buttonH
+  //     )
+  //   );
 
   startmenuButtons.push(
     new startMenuButton(
       infinitetxt,
       width / 2 - buttonW / 2,
-      height * 0.6,
+      height * 0.5,
       // floor(((2 * height) / 3) * (6 / 7)),
       buttonW,
       buttonH
@@ -80,7 +81,7 @@ function gameStartMenu() {
     rect(i, (2 * height) / 3 - rectThickness, 1, rectThickness * 2);
   }
 
-  hButton = new helpButton(width / 2, height*0.8 + buttonW / 8);
+  hButton = new helpButton(width / 2, height * 0.8 + buttonW / 8);
 
   // vButton = new vibrateButton(2*width/3, 4*height/5);
 }
@@ -110,14 +111,16 @@ class startMenuButton {
   show() {
     if (this.pressed) {
       navigator.vibrate(1);
-      this.colour = color(38, 151, 192);
+      this.colour = darkblueC;
     } else {
       this.colour = blueC;
     }
 
-    fill(this.colour);
     noStroke();
     rectMode(CORNER);
+    fill(darkblueC);
+    rect(this.x + shadowSize, this.y + shadowSize, this.w, this.h, 20);
+    fill(this.colour);
     rect(this.x, this.y, this.w, this.h, 20);
     fill(255);
     textSize(width / 8);
@@ -195,13 +198,16 @@ class helpButton {
   show() {
     if (this.pressed) {
       navigator.vibrate(1);
-      this.colour = color(38, 151, 192);
+      this.colour = darkblueC;
     } else {
       this.colour = blueC;
     }
 
-    fill(this.colour);
     noStroke();
+    fill(darkblueC);
+    circle(this.x + shadowSize/2, this.y + shadowSize/2, this.r * 2);
+
+    fill(this.colour);
     circle(this.x, this.y, this.r * 2);
     fill(255);
     textSize(this.r);
@@ -283,19 +289,14 @@ function titleText() {
   // fill(blueC);
   // textSize(64);
   // text("ADJACENTLY", width / 2, height*0.125 );
- //  imageMode(CENTER);
- // image(titleImg,width/2, height*0.125);
+  //  imageMode(CENTER);
+  // image(titleImg,width/2, height*0.125);
   // let imgX = (width - titleImg.width)/2;
   // drawScaledImage(titleImg, imgX, height*0.05, 1);
-  
- 
-  
-  for(let i = 0; i < title.length; i++){
+
+  for (let i = 0; i < title.length; i++) {
     titleTextBlocks.push(new TitleBlock(i, title[i]));
   }
-  
-  
-  
 }
 
 class TitleBlock {
@@ -303,15 +304,15 @@ class TitleBlock {
     let cols = 12;
     this.w = floor(width / cols);
     this.x = this.w + floor(colNo * this.w);
-   this.random = random(-10,10);
-    this.y = height*0.075 + this.random;
+    this.random = random(-10, 10);
+    this.y = height * 0.1 + this.random;
     this.h = this.w;
     this.letter = letter;
   }
 
   show() {
     noStroke();
-     fill(blueC);
+    fill(blueC);
     rectMode(CORNER);
     rect(this.x, this.y, this.w, this.h, 5);
     noStroke();
@@ -319,5 +320,5 @@ class TitleBlock {
     textSize(16);
     textAlign(CENTER, CENTER);
     text(this.letter, this.x + this.w / 2, this.y + this.h / 2);
-    }
+  }
 }

@@ -4,7 +4,7 @@ async function setup() {
   if (windowWidth < gameWidth) {
     gameWidth = windowWidth;
   }
-  createCanvas(gameWidth, windowHeight);
+  createCanvas(gameWidth, windowHeight - 75);
   gameHeight = (2 * height) / 3;
 
   pixelDensity(window.devicePixelRatio);
@@ -27,6 +27,8 @@ async function setup() {
 
   fallingBlocks.push(new FallingBlock());
 
+  shadowSize = width / 80;
+
   makeKeyboard();
 
   buttonW = width / 2;
@@ -40,7 +42,9 @@ async function setup() {
 
   //HELPSCREEN
   setupHelpscreen();
-  
+
+  setupHintscreen();
+
   titleText();
 }
 
@@ -64,6 +68,12 @@ function draw() {
     for (let k of functionKeys) {
       k.show();
     }
+
+    if (!hintChosen && guessY < gameHeight - 3 * h) {
+      setTimeout(() => {
+        checkHint();
+      }, 1000);
+    }
   }
 
   if (gamestate == "won") {
@@ -78,13 +88,10 @@ function draw() {
   if (gamestate == "startmenu") {
     fallingBlock();
     hButton.show();
-    
-    
-    for(let b of titleTextBlocks){
-    b.show();
-  }
-    
-    // vButton.show();
+
+    for (let b of titleTextBlocks) {
+      b.show();
+    }
 
     for (let b of startmenuButtons) {
       b.show();
@@ -95,12 +102,14 @@ function draw() {
     helpScreen();
   }
 
+  if (hintScreenShowing) {
+    hintScreen();
+  }
+
   for (let b of bombs) {
     b.update();
     b.show();
   }
-
-  // hasVibrated = false;
 }
 
 function keyPressed() {
@@ -117,5 +126,9 @@ function keyPressed() {
     inputArr.push("L");
     inputArr.push("O");
     newGuess();
+  }
+
+  if (key == "h") {
+    hintScreenShowing = true;
   }
 }

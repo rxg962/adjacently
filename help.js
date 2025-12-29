@@ -54,6 +54,7 @@ class exitButton {
       this.pressed = true;
       setTimeout(() => {
         helpScreenShowing = false;
+        hintScreenShowing = false;
       }, 100);
     }
 
@@ -64,10 +65,11 @@ class exitButton {
 }
 
 function helpScreen() {
-  fill(255);
+ 
   rectMode(CENTER);
+  fill(255);
   stroke(greyC);
-  strokeWeight(4);
+  strokeWeight(1);
   rect(helpScreenX, helpScreenY, helpScreenW, helpScreenH);
   backgroundRectangles();
 
@@ -125,8 +127,8 @@ function createHelpScreenBoundaries() {
 
   helpScreenX = width / 2;
   helpScreenY = height / 2;
-  helpScreenW = width - width / 5;
-  helpScreenH = height - height / 3;
+  helpScreenW = width - width / 10;
+  helpScreenH = height - height / 5;
   
   helpLeft = width / 2 - (helpScreenW) / 2 + buffer;
   helpTop = height / 2 - (helpScreenH) / 2 + buffer;
@@ -385,21 +387,21 @@ function backgroundRectangles() {
   rect(
     width / 2,
     helpTop + (adjacentblockY / heightDivider) * helpScreenH,
-    helpScreenW - 4,
+    helpScreenW - 1,
     h
   );
   //BLOCKS2
   rect(
     width / 2,
     helpTop + (notadjacentblockY / heightDivider) * helpScreenH,
-    helpScreenW - 4,
+    helpScreenW - 1,
     h
   );
   //BLOCKS3
   rect(
     width / 2,
     helpTop + (notintargetblockY / heightDivider) * helpScreenH,
-    helpScreenW - 4,
+    helpScreenW - 1,
     h
   );
 }

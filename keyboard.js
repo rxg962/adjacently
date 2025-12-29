@@ -23,6 +23,9 @@ class letterKey {
       } else if (!this.pressed && correctLetters.includes(this.letter)) {
         this.state = "winning";
         this.colour = blueC;
+      } else if (showKeyboardHint && this.letter == hint) {
+        this.state = "correct";
+        this.colour = pinkC;
       } else {
         this.colour = lightblueC;
       }
@@ -134,7 +137,7 @@ function makeKeyboard() {
 
   //FUNCTION BUTTONS
 
-  let enterX = 1.7 * keyW + keyW / 5 + 7 * (keyW + keyW / 5); 
+  let enterX = 1.7 * keyW + keyW / 5 + 7 * (keyW + keyW / 5);
   //let enterX = width / 12 + width / 15 + (7.1 * (width - width / 75)) / 10;
   let enterY = keyboardTop + 2 * keyboardGap;
   functionKeys.push(new functionKey(enterX, enterY, "Enter"));
@@ -172,5 +175,3 @@ function makeKeyboard() {
     );
   }
 }
-
-

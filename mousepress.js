@@ -4,11 +4,14 @@ function screenInteract() {
       b.keyPressed();
     }
     hButton.keyPressed();
-    // vButton.keyPressed();
   }
 
-  if (gamestate == "startmenu" && helpScreenShowing) {
+  if (helpScreenShowing || hintScreenShowing) {
     exButton.keyPressed();
+  }
+  
+  if(hintScreenShowing){
+    hintButton.keyPressed();
   }
 
   if (gamestate == "playing") {

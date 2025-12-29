@@ -77,8 +77,8 @@ class Block {
     } else if (target && 
       target.includes(this.letter) &&
       (this.LMatch > -1 ||
-        this.UMatch > -1 ||
-        this.RMatch > -1 ||
+        //this.UMatch > -1 ||
+        //this.RMatch > -1 ||
         this.DMatch > -1)) {
       fill(pinkC);
     } else {
