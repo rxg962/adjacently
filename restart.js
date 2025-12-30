@@ -71,7 +71,6 @@ let titleTextBlocks = [];
 let title = ["A", "D", "J", "A", "C", "E", "N", "T", "L", "Y"];
 let hintScreenShowing = false;
 
-
 function restart() {
   blocks = [];
   letters = [];
@@ -107,11 +106,6 @@ function restart() {
   bombDropped = false;
   bombExplodedTime = undefined;
   bombExploded = false;
-    hintBlocks = [];
-  hintRevealed = false;
-  hintChosen = false;
-  showKeyboardHint = false;
-  hint = undefined;
 
   for (let k of letterKeys) {
     k.state = "default";

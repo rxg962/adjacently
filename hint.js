@@ -19,7 +19,9 @@ function hintScreen() {
   // rect(hintScreenX + shadowSize, hintScreenY + shadowSize, hintScreenW, hintScreenH);
 
   fill(255);
-  rect(hintScreenX, hintScreenY, hintScreenW, hintScreenH, 20);
+  stroke(greyC);
+  strokeWeight(1);
+  rect(hintScreenX, hintScreenY, hintScreenW, hintScreenH);
 
   hintText();
 

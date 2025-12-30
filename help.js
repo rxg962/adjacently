@@ -68,7 +68,9 @@ function helpScreen() {
  
   rectMode(CENTER);
   fill(255);
-  rect(helpScreenX, helpScreenY, helpScreenW, helpScreenH, 20);
+  stroke(greyC);
+  strokeWeight(1);
+  rect(helpScreenX, helpScreenY, helpScreenW, helpScreenH);
   backgroundRectangles();
 
   helpTopText();
@@ -186,7 +188,7 @@ function helpAdjacentText() {
   let txtTopBuffer = 0.75;
   textH = textAscent() + textDescent();
   text(
-    "Connected letters are ADJACENT in target",
+    "Adjacent letters in guess ARE ADJACENT in target",
     width / 2,
     helpTop + (adjacenttxtY / heightDivider) * helpScreenH
   );
@@ -226,7 +228,7 @@ function helpNotAdjacentText() {
   let txtTopBuffer = 0.75;
   textH = textAscent() + textDescent();
   text(
-    "Connected letters are NOT ADJACENT in target",
+    "Adjacent letters in guess are NOT ADJACENT in target",
     width / 2,
     helpTop + (notadjacenttxtY / heightDivider) * helpScreenH
   );
@@ -266,7 +268,7 @@ function helpNotTargetText() {
   let txtTopBuffer = 0.75;
   textH = textAscent() + textDescent();
   text(
-    "Grey letters are NOT in target",
+    "NOT in target",
     width / 2,
     helpTop + (notintargettxtY / heightDivider) * helpScreenH
   );
@@ -385,21 +387,21 @@ function backgroundRectangles() {
   rect(
     width / 2,
     helpTop + (adjacentblockY / heightDivider) * helpScreenH,
-    helpScreenW,
+    helpScreenW - 1,
     h
   );
   //BLOCKS2
   rect(
     width / 2,
     helpTop + (notadjacentblockY / heightDivider) * helpScreenH,
-    helpScreenW,
+    helpScreenW - 1,
     h
   );
   //BLOCKS3
   rect(
     width / 2,
     helpTop + (notintargetblockY / heightDivider) * helpScreenH,
-    helpScreenW,
+    helpScreenW - 1,
     h
   );
 }
