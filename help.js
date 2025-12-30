@@ -405,7 +405,7 @@ function backgroundRectangles() {
   rect(
     width / 2,
     helpTop + (notintargetblockY / heightDivider) * helpScreenH,
-    helpScreenW - 1,
+    helpScreenW,
     h
   );
 }
