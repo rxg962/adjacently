@@ -9,6 +9,8 @@ function getData() {
   totalPlays = getItem("totalplays");
   streak = getItem("streak");
   totalScore = getItem("totalscore");
+    averageScore = totalScore / totalPlays;
+  averageScore = Math.round(averageScore * 2) / 2;
   console.log("today " + score);
   console.log("total " + totalScore);
   console.log("streak " + streak);
