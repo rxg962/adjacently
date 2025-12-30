@@ -13,17 +13,6 @@ function gameStartMenu() {
     )
   );
 
-  //   startmenuButtons.push(
-  //     new startMenuButton(
-  //       experttxt,
-  //       width / 2 - buttonW / 2,
-  //       height * 0.4,
-  //       // floor(((2 * height) / 3) * (4 / 7)),
-  //       buttonW,
-  //       buttonH
-  //     )
-  //   );
-
   startmenuButtons.push(
     new startMenuButton(
       infinitetxt,
@@ -81,9 +70,9 @@ function gameStartMenu() {
     rect(i, (2 * height) / 3 - rectThickness, 1, rectThickness * 2);
   }
 
-  hButton = new helpButton(width / 2, height * 0.8 + buttonW / 8);
+  hButton = new helpButton(width / 3, height * 0.8 + buttonW / 8, buttonW / 8);
+    dButton = new dataButton(2*width / 3, height * 0.8 + buttonW / 8, buttonW / 8);
 
-  // vButton = new vibrateButton(2*width/3, 4*height/5);
 }
 
 function fallingBlock() {
@@ -144,10 +133,6 @@ class startMenuButton {
           targetType = dailytxt;
           getTarget();
           gamestate = "playing";
-          totalGuesses = 10;
-          w = floor(gameWidth / 5);
-          h = floor(gameHeight / totalGuesses);
-          guessY = gameHeight - h;
         }, 100);
       }
 
@@ -157,24 +142,6 @@ class startMenuButton {
           targetType = infinitetxt;
           getTarget();
           gamestate = "playing";
-          totalGuesses = 10;
-          w = floor(gameWidth / 5);
-          h = floor(gameHeight / totalGuesses);
-          guessY = gameHeight - h;
-        }, 100);
-      }
-
-      if (this.txt == "Expert") {
-        this.pressed = true;
-        expertMode = true;
-        setTimeout(() => {
-          targetType = dailytxt;
-          getTarget();
-          gamestate = "playing";
-          totalGuesses = 6;
-          w = floor(gameWidth / 5);
-          h = floor(gameHeight / totalGuesses);
-          guessY = gameHeight - h;
         }, 100);
       }
     }
@@ -186,10 +153,10 @@ class startMenuButton {
 }
 
 class helpButton {
-  constructor(x, y) {
+  constructor(x, y, r) {
     this.x = x;
     this.y = y;
-    this.r = buttonW / 8;
+    this.r = r;
     this.txt = "?";
     this.colour = undefined;
     this.pressed = false;
@@ -203,9 +170,12 @@ class helpButton {
       this.colour = blueC;
     }
 
-    noStroke();
+    if(this.r > width/20){
+       noStroke();
     fill(darkblueC);
-    circle(this.x + shadowSize/2, this.y + shadowSize/2, this.r * 2);
+    circle(this.x + shadowSize/2, this.y + shadowSize/2, this.r * 2); 
+    }
+  
 
     fill(this.colour);
     circle(this.x, this.y, this.r * 2);
@@ -235,71 +205,15 @@ class helpButton {
   }
 }
 
-// class vibrateButton {
-//   constructor(x, y) {
-//     this.x = x;
-//     this.y = y;
-//     this.r = buttonW / 8;
-//     this.txt = "V";
-//     this.bgcolour = undefined;
-//     this.txtcolour = undefined;
-//     this.pressed = false;
-//   }
 
-//   show() {
-//     if (vibrateOn == 1) {
-//       navigator.vibrate(1);
-//       this.bgcolour = blueC;
-//       this.txtcolour = color(255);
-//     } else {
-//       this.bgcolour = color(255);
-//       this.txtcolour = blueC;
-//     }
 
-//     fill(this.bgcolour);
-//     noStroke();
-//     circle(this.x, this.y, this.r * 2);
-//     fill(this.txtcolour);
-//     textSize(this.r);
-//     textAlign(CENTER, CENTER);
-//     text(this.txt, this.x, this.y);
-//   }
-
-//   keyPressed() {
-//     if (
-//       mouseX > this.x - this.r &&
-//       mouseX < this.x + this.r &&
-//       mouseY > this.y - this.r &&
-//       mouseY < this.y + this.r
-//     ) {
-//       this.pressed = true;
-
-//       setTimeout(() => {
-//         vibrateOn *= -1;
-//       }, 100);
-//     }
-
-//     setTimeout(() => {
-//       this.pressed = false;
-//     }, 100);
-//   }
-// }
-
-function titleText() {
-  // fill(blueC);
-  // textSize(64);
-  // text("ADJACENTLY", width / 2, height*0.125 );
-  //  imageMode(CENTER);
-  // image(titleImg,width/2, height*0.125);
-  // let imgX = (width - titleImg.width)/2;
-  // drawScaledImage(titleImg, imgX, height*0.05, 1);
-
+function titleTextStartMenu() {
   for (let i = 0; i < title.length; i++) {
-    titleTextBlocks.push(new TitleBlock(i, title[i]));
+    titleTextBlocksStartMenu.push(new TitleBlockStartMenu(i, title[i]));
   }
 }
 
-class TitleBlock {
+class TitleBlockStartMenu {
   constructor(colNo, letter) {
     let cols = 12;
     this.w = floor(width / cols);

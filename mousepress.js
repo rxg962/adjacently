@@ -4,13 +4,14 @@ function screenInteract() {
       b.keyPressed();
     }
     hButton.keyPressed();
+    dButton.keyPressed();
   }
 
-  if (helpScreenShowing || hintScreenShowing) {
+  if (helpScreenShowing || hintScreenShowing || dataScreenShowing) {
     exButton.keyPressed();
   }
-  
-  if(hintScreenShowing){
+
+  if (hintScreenShowing) {
     hintButton.keyPressed();
   }
 
@@ -24,11 +25,18 @@ function screenInteract() {
     }
   }
 
-  if (gamestate == "won" || (gamestate == "lost" && playAgButton) && !playAgButton.falling) {
+  if (
+    gamestate == "won" ||
+    (gamestate == "lost" && playAgButton && !playAgButton.falling)
+  ) {
     playAgButton.keyPressed();
   }
-}
 
+  if (gamestate != "startmenu") {
+    hButtonTopBar.keyPressed();
+    dButtonTopBar.keyPressed();
+  }
+}
 
 function mousePressed() {
   screenInteract(mouseX, mouseY);

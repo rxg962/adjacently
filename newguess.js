@@ -11,7 +11,8 @@ function newGuess() {
     for (g of guessArr) {
       let col = index % 5;
       let x = floor(col * w);
-      let b = new Block(x, floor(guessY), index, g);
+      let y = guessY;
+      let b = new Block(x, y, index, g);
       blocks.push(b);
       letters.push(b.letter);
 
@@ -44,8 +45,9 @@ function updateKeyColour() {
 }
 
 function checkIfLost() {
-  if (gamestate != "won" && guessY < 0) {
+  if (gamestate != "won" && guessY < playAreaTop) {
     gamestate = "lost";
+    storeItem("streak", 0);
   }
 }
 
@@ -61,6 +63,8 @@ function checkIfWon() {
 
   gamestate = "won";
   score = totalGuesses + 1 - blocks.length / 5;
+
+  if(targetType == dailytxt){
+    saveData();
+  }
 }
-
-

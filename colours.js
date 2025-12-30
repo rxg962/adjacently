@@ -11,6 +11,7 @@ function getColours() {
   darkblueC = color(38, 151, 192);
   darkpinkC = color(229, 90, 162);
   darkredC = color(170, 14, 16);
+  backgroundC = color(190, 228, 242, 200);
 
   fireworkpinkC = color(254, 170, 171);
   fireworkblueC = color(41, 163, 251);

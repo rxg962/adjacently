@@ -7,6 +7,7 @@ let hint;
 let hintChosen = false;
 let hintTime;
 let showKeyboardHint = false;
+let hintScreenShown = false;
 
 function setupHintscreen() {
   createHintScreenBoundaries();
@@ -15,13 +16,8 @@ function setupHintscreen() {
 
 function hintScreen() {
   rectMode(CENTER);
-  // fill(greyC);
-  // rect(hintScreenX + shadowSize, hintScreenY + shadowSize, hintScreenW, hintScreenH);
-
   fill(255);
-  stroke(greyC);
-  strokeWeight(1);
-  rect(hintScreenX, hintScreenY, hintScreenW, hintScreenH);
+  rect(hintScreenX, hintScreenY, hintScreenW, hintScreenH, 20);
 
   hintText();
 
@@ -96,7 +92,7 @@ function createHintScreenBoundaries() {
   let buffer = width / 15;
 
   hintScreenX = width / 2;
-  hintScreenY = height * 0.2;
+  hintScreenY = height * 0.3;
   hintScreenW = width - width / 5;
   hintScreenH = height - (3 * height) / 4;
 

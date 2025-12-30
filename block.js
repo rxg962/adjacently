@@ -1,7 +1,7 @@
 class Block {
   constructor(x, y, index, letter) {
     this.x = x;
-    this.y = -h - random(15, 50);
+    this.y = playAreaTop - h - random(15, 50);
     this.w = w;
     this.h = h;
     this.finishY = y;
@@ -30,8 +30,8 @@ class Block {
     this.impact4Col = color(245, 163, 168);
 
     this.angleUD = random(-PI / 10, PI / 10);
-    this.angleR = random(PI/50, PI / 8);
-    this.angleL = random(-PI / 50, -PI/8);
+    this.angleR = random(PI / 50, PI / 8);
+    this.angleL = random(-PI / 50, -PI / 8);
   }
 
   show() {
@@ -66,7 +66,9 @@ class Block {
     rectMode(CORNER);
     let d = 3;
 
-    rect(this.x + d, this.y + d, this.w - 2 * d, this.h - 2 * d, 15);
+        rect(this.x + d, this.y + d, this.w - 2 * d, this.h - 2 * d, 15);
+
+    // rect(this.x + d, this.y + d, this.w - 2 * d, this.h - 2 * d, 15);
 
     this.showMatch();
 
@@ -74,25 +76,27 @@ class Block {
     textSize(min(w, h) / 2);
     if (gamestate == "won" && this.index >= lastRowStart) {
       fill(255);
-    } else if (target && 
+    } else if (
+      target &&
       target.includes(this.letter) &&
       (this.LMatch > -1 ||
-        //this.UMatch > -1 ||
-        //this.RMatch > -1 ||
-        this.DMatch > -1)) {
+        this.UMatch > -1 ||
+        this.RMatch > -1 ||
+        this.DMatch > -1)
+    ) {
       fill(pinkC);
     } else {
       fill(0);
     }
 
-    if (gamestate == "lost"){
+    if (gamestate == "lost") {
       fill(0);
     }
-    
-     noStroke();
-      textAlign(CENTER, CENTER);
-    
-    if(bombExploded == true) {
+
+    noStroke();
+    textAlign(CENTER, CENTER);
+
+    if (bombExploded == true) {
       push();
       translate(this.x + w / 2, this.y + h / 2);
       rotate(this.explosionAngle());
@@ -382,33 +386,45 @@ class Block {
         return this.impact3Col;
       }
     }
-    
+
     //OUTERRING
 
     if (blocks[i + 11]) {
-      if (blocks[i + 11].exploded && abs(blocks[i].y - blocks[i + 11].y) == h*2) {
+      if (
+        blocks[i + 11].exploded &&
+        abs(blocks[i].y - blocks[i + 11].y) == h * 2
+      ) {
         return this.impact5Col;
       }
     }
 
     if (blocks[i - 11]) {
-      if (blocks[i - 11].exploded && abs(blocks[i].y - blocks[i - 11].y) == h*2) {
+      if (
+        blocks[i - 11].exploded &&
+        abs(blocks[i].y - blocks[i - 11].y) == h * 2
+      ) {
         return this.impact5Col;
       }
     }
-    
+
     if (blocks[i + 9]) {
-      if (blocks[i + 9].exploded && abs(blocks[i].y - blocks[i + 9].y) == h*2) {
+      if (
+        blocks[i + 9].exploded &&
+        abs(blocks[i].y - blocks[i + 9].y) == h * 2
+      ) {
         return this.impact5Col;
       }
     }
 
     if (blocks[i - 9]) {
-      if (blocks[i - 9].exploded && abs(blocks[i].y - blocks[i - 9].y) == h*2) {
+      if (
+        blocks[i - 9].exploded &&
+        abs(blocks[i].y - blocks[i - 9].y) == h * 2
+      ) {
         return this.impact5Col;
       }
     }
-    
+
     if (blocks[i + 7]) {
       if (blocks[i + 7].exploded && abs(blocks[i].y - blocks[i + 7].y) == h) {
         return this.impact5Col;
@@ -419,7 +435,7 @@ class Block {
         return this.impact5Col;
       }
     }
-    
+
     if (blocks[i + 3]) {
       if (blocks[i + 3].exploded && abs(blocks[i].y - blocks[i + 3].y) == h) {
         return this.impact5Col;
@@ -430,9 +446,8 @@ class Block {
         return this.impact5Col;
       }
     }
-    
   }
-  
+
   explosionAngle() {
     let i = this.index;
 
@@ -508,7 +523,6 @@ class Block {
       }
     }
   }
-  
 }
 
 function explodeBlocks() {

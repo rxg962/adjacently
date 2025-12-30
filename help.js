@@ -55,6 +55,8 @@ class exitButton {
       setTimeout(() => {
         helpScreenShowing = false;
         hintScreenShowing = false;
+        hintScreenShown = true;
+        dataScreenShowing = false;
       }, 100);
     }
 
@@ -66,11 +68,13 @@ class exitButton {
 
 function helpScreen() {
  
-  rectMode(CENTER);
+  rectMode(CORNER);
+  fill(backgroundC);
+  rect(0, 0, width, height);
+    rectMode(CENTER);
+
   fill(255);
-  stroke(greyC);
-  strokeWeight(1);
-  rect(helpScreenX, helpScreenY, helpScreenW, helpScreenH);
+  rect(helpScreenX, helpScreenY, helpScreenW, helpScreenH, 20);
   backgroundRectangles();
 
   helpTopText();
@@ -188,7 +192,7 @@ function helpAdjacentText() {
   let txtTopBuffer = 0.75;
   textH = textAscent() + textDescent();
   text(
-    "Adjacent letters in guess ARE ADJACENT in target",
+    "Connected letters are ADJACENT in target",
     width / 2,
     helpTop + (adjacenttxtY / heightDivider) * helpScreenH
   );
@@ -228,7 +232,7 @@ function helpNotAdjacentText() {
   let txtTopBuffer = 0.75;
   textH = textAscent() + textDescent();
   text(
-    "Adjacent letters in guess are NOT ADJACENT in target",
+    "Connected letters are NOT ADJACENT in target",
     width / 2,
     helpTop + (notadjacenttxtY / heightDivider) * helpScreenH
   );
@@ -268,7 +272,7 @@ function helpNotTargetText() {
   let txtTopBuffer = 0.75;
   textH = textAscent() + textDescent();
   text(
-    "NOT in target",
+    "Grey letters are NOT in target",
     width / 2,
     helpTop + (notintargettxtY / heightDivider) * helpScreenH
   );
@@ -387,14 +391,14 @@ function backgroundRectangles() {
   rect(
     width / 2,
     helpTop + (adjacentblockY / heightDivider) * helpScreenH,
-    helpScreenW - 1,
+    helpScreenW,
     h
   );
   //BLOCKS2
   rect(
     width / 2,
     helpTop + (notadjacentblockY / heightDivider) * helpScreenH,
-    helpScreenW - 1,
+    helpScreenW,
     h
   );
   //BLOCKS3

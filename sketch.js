@@ -4,8 +4,7 @@ async function setup() {
   if (windowWidth < gameWidth) {
     gameWidth = windowWidth;
   }
-  createCanvas(gameWidth, windowHeight);
-  gameHeight = (2 * height) / 3;
+  createCanvas(gameWidth, windowHeight - 75);
 
   pixelDensity(window.devicePixelRatio);
 
@@ -13,17 +12,17 @@ async function setup() {
 
   await getWords();
 
-  titleImg = await loadImage("Adjacently.png");
-  let imgRatio = titleImg.width / titleImg.height;
-  let imgW = width * 0.8;
-  let imgH = titleImg.height / imgRatio;
-  titleImg.resize(imgW, imgH);
-
   getColours();
 
+  gameHeight = (2 * height) / 3;
+  topBarH = height / 15;
+  playAreaTop = topBarH + (5 * height) / 162;
+  playAreaBottom = gameHeight;
+  playAreaHeight = playAreaBottom - playAreaTop;
+
   w = floor(gameWidth / 5);
-  h = floor(gameHeight / totalGuesses);
-  guessY = gameHeight - h;
+  h = floor(playAreaHeight / totalGuesses);
+  guessY = playAreaBottom - h;
 
   fallingBlocks.push(new FallingBlock());
 
@@ -40,12 +39,13 @@ async function setup() {
   dividingline();
   playAgButton = new playAgainButton();
 
-  //HELPSCREEN
   setupHelpscreen();
 
   setupHintscreen();
 
-  titleText();
+  setUpTopBar();
+
+  titleTextStartMenu();
 }
 
 function draw() {
@@ -81,15 +81,15 @@ function draw() {
   }
 
   if (gamestate == "lost") {
-    // shootFailFireworks();
     dropBomb();
   }
 
   if (gamestate == "startmenu") {
     fallingBlock();
     hButton.show();
+    dButton.show();
 
-    for (let b of titleTextBlocks) {
+    for (let b of titleTextBlocksStartMenu) {
       b.show();
     }
 
@@ -102,23 +102,29 @@ function draw() {
     helpScreen();
   }
 
-  if (hintScreenShowing) {
+  if (hintScreenShowing && !hintScreenShown) {
     hintScreen();
+  }
+  
+  if(dataScreenShowing){
+    dataScreen();
   }
 
   for (let b of bombs) {
     b.update();
     b.show();
   }
+
+  if (gamestate != "startmenu") {
+    drawTopBar();
+    for (let b of titleTextBlocksTopBar) {
+      b.show();
+    }
+  }
+
 }
 
 function keyPressed() {
-  if (key == " ") {
-    let bomb = new Bomb();
-    bomb.update();
-    bomb.show();
-  }
-
   if (key == "g") {
     inputArr.push("H");
     inputArr.push("E");
@@ -126,9 +132,28 @@ function keyPressed() {
     inputArr.push("L");
     inputArr.push("O");
     newGuess();
+    checkIfWon();
+    checkIfLost();
   }
 
-  if (key == "h") {
-    hintScreenShowing = true;
+  if (key == "r") {
+    removeItem("totalscore");
+    removeItem("totalplays");
+    removeItem("streak");
+
+    console.log("today " + score);
+    console.log("total " + totalScore);
+    console.log("streak " + streak);
+    console.log("average " + averageScore);
+  }
+
+  if (key == "t") {
+    inputArr.push(target[0]);
+    inputArr.push(target[1]);
+    inputArr.push(target[2]);
+    inputArr.push(target[3]);
+    inputArr.push(target[4]);
+    newGuess();
+    checkIfWon();
   }
 }
