@@ -4,7 +4,7 @@ async function setup() {
   if (windowWidth < gameWidth) {
     gameWidth = windowWidth;
   }
-  createCanvas(gameWidth, windowHeight);
+  createCanvas(gameWidth, windowHeight - 75);
 
   pixelDensity(window.devicePixelRatio);
 
@@ -69,7 +69,7 @@ function draw() {
       k.show();
     }
 
-    if (!hintChosen && guessY < gameHeight - 3 * h) {
+    if (!hintChosen && guessY < playAreaBottom - 3 * h) {
       setTimeout(() => {
         checkHint();
       }, 1000);
