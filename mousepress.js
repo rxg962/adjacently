@@ -26,9 +26,8 @@ function screenInteract() {
   }
 
   if (
-    gamestate == "won" ||
-    (gamestate == "lost" && playAgButton && !playAgButton.falling)
-  ) {
+    gamestate == "won" || 
+    gamestate == "lost" || gamestate == "played" && (playAgButton && !playAgButton.falling)) {
     playAgButton.keyPressed();
   }
 

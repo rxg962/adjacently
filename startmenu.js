@@ -71,8 +71,11 @@ function gameStartMenu() {
   }
 
   hButton = new helpButton(width / 3, height * 0.8 + buttonW / 8, buttonW / 8);
-    dButton = new dataButton(2*width / 3, height * 0.8 + buttonW / 8, buttonW / 8);
-
+  dButton = new dataButton(
+    (2 * width) / 3,
+    height * 0.8 + buttonW / 8,
+    buttonW / 8
+  );
 }
 
 function fallingBlock() {
@@ -129,10 +132,12 @@ class startMenuButton {
       if (this.txt == "Daily") {
         this.pressed = true;
 
-        setTimeout(() => {
+        setTimeout(async () => {
           targetType = dailytxt;
-          getTarget();
+
+          await getTarget();
           gamestate = "playing";
+          await getTodaysBoard();
         }, 100);
       }
 
@@ -170,12 +175,11 @@ class helpButton {
       this.colour = blueC;
     }
 
-    if(this.r > width/20){
-       noStroke();
-    fill(darkblueC);
-    circle(this.x + shadowSize/2, this.y + shadowSize/2, this.r * 2); 
+    if (this.r > width / 20) {
+      noStroke();
+      fill(darkblueC);
+      circle(this.x + shadowSize / 2, this.y + shadowSize / 2, this.r * 2);
     }
-  
 
     fill(this.colour);
     circle(this.x, this.y, this.r * 2);
@@ -204,8 +208,6 @@ class helpButton {
     }, 100);
   }
 }
-
-
 
 function titleTextStartMenu() {
   for (let i = 0; i < title.length; i++) {

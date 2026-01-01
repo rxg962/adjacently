@@ -44,14 +44,18 @@ function updateKeyColour() {
   }
 }
 
-function checkIfLost() {
+async function checkIfLost() {
   if (gamestate != "won" && guessY < playAreaTop) {
+    await saveTodaysBoard();
     gamestate = "lost";
+    if (targetType == dailytxt) {
+      await saveData();
+    }
     storeItem("streak", 0);
   }
 }
 
-function checkIfWon() {
+async function checkIfWon() {
   if (!guessWord) {
     return;
   }
@@ -64,7 +68,8 @@ function checkIfWon() {
   gamestate = "won";
   score = totalGuesses + 1 - blocks.length / 5;
 
-  if(targetType == dailytxt){
-    saveData();
+  if (targetType == dailytxt) {
+    await saveTodaysBoard();
+    await saveData();
   }
 }

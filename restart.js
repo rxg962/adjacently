@@ -112,16 +112,103 @@ function restart() {
   hintChosen = false;
   showKeyboardHint = false;
   hint = undefined;
+  doneBlocks = [];
 
   for (let k of letterKeys) {
     k.state = "default";
   }
 }
 
-function restartMenu() {
+async function restartMenu() {
   textAlign(CENTER, CENTER);
+  await getData();
 
-  if (gamestate == "won" && targetType == dailytxt) {
+  if (gamestate == "played") {
+    if (data.wl == "won") {
+      txt1 = "TODAY: " + todaysScore;
+      txt2 = "AVERAGE: " + averageScore;
+      txt3 = "STREAK: " + streak;
+      txtStrokeC = pinkC;
+      txtFillC = pinkC;
+
+      text1Size = 64;
+      textSize(text1Size);
+      while (textWidth(txt1) > playAgButton.w * 0.8 && text1Size > 0) {
+        text1Size -= 1;
+        textSize(text1Size);
+      }
+      text2Size = 64;
+      textSize(text2Size);
+      while (textWidth(txt2) > playAgButton.w * 0.8 && text2Size > 0) {
+        text2Size -= 1;
+        textSize(text2Size);
+      }
+      text3Size = 64;
+      textSize(text3Size);
+      while (textWidth(txt3) > playAgButton.w * 0.8 && text3Size > 0) {
+        text3Size -= 1;
+        textSize(text3Size);
+      }
+
+      let textWinSize = min(text1Size, text2Size);
+      textWinSize = min(text3Size, textWinSize);
+
+      let textX = width / 4;
+      let buffer = width / 30;
+      let boxH = height * 0.2;
+
+      let text1Y = height - (3 * (height - dividingLineH)) / 4 + buffer;
+      let text2Y = height - (height - dividingLineH) / 2;
+      let text3Y = height - (1 * (height - dividingLineH)) / 4 - buffer;
+
+      if (!restartTextsCreated) {
+        restartTxtRect = new restartTextRect(txtStrokeC);
+        restartTexts.push(
+          new restartText(txt1, textX, text1Y, txtFillC, textWinSize)
+        );
+        restartTexts.push(
+          new restartText(txt2, textX, text2Y, txtFillC, textWinSize)
+        );
+        restartTexts.push(
+          new restartText(txt3, textX, text3Y, txtFillC, textWinSize)
+        );
+        restartTextsCreated = true;
+      }
+    } else if (data.wl == "lost") {
+      txt1 = "TARGET:";
+      txt2 = target.join("");
+      txtStrokeC = redC;
+      txtFillC = redC;
+
+      text1Size = 64;
+      textSize(text1Size);
+      while (textWidth(txt1) > playAgButton.w / 3 && text1Size > 0) {
+        text1Size -= 1;
+        textSize(text1Size);
+      }
+      text2Size = 64;
+      textSize(text2Size);
+      while (textWidth(txt2) > playAgButton.w * 0.9 && text2Size > 0) {
+        text2Size -= 1;
+        textSize(text2Size);
+      }
+      let textX = width / 4;
+      let buffer = width / 30;
+      let text1Y = height - (3 * (height - dividingLineH)) / 4 + buffer;
+      let text2Y = height - (height - dividingLineH) / 2 + buffer;
+
+      if (!restartTextsCreated) {
+        restartTxtRect = new restartTextRect(txtStrokeC);
+        restartTexts.push(
+          new restartText(txt1, textX, text1Y, txtFillC, text1Size)
+        );
+        restartTexts.push(
+          new restartText(txt2, textX, text2Y, txtFillC, text2Size)
+        );
+        restartTextsCreated = true;
+      }
+    }
+  } else if (gamestate == "won" && targetType == dailytxt) {
     txt1 = "TODAY: " + score;
     txt2 = "AVERAGE: " + averageScore;
     txt3 = "STREAK: " + streak;
@@ -275,7 +362,7 @@ class playAgainButton {
   }
 
   show() {
-    if (gamestate == "won") {
+    if (gamestate == "won" || (gamestate == "played" && data.wl == "won")) {
       if (this.pressed) {
         navigator.vibrate(1);
         this.colour = darkpinkC;
@@ -284,7 +371,7 @@ class playAgainButton {
       }
     }
 
-    if (gamestate == "lost") {
+    if (gamestate == "lost" || (gamestate == "played" && data.wl == "lost")) {
       if (this.pressed) {
         navigator.vibrate(1);
         this.colour = darkredC;

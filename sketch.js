@@ -4,7 +4,7 @@ async function setup() {
   if (windowWidth < gameWidth) {
     gameWidth = windowWidth;
   }
-  createCanvas(gameWidth, windowHeight);
+  createCanvas(gameWidth, windowHeight - 75);
 
   pixelDensity(window.devicePixelRatio);
 
@@ -56,6 +56,11 @@ function draw() {
     b.show();
     b.update();
   }
+  
+  for (let b of doneBlocks) {
+    b.show();
+    b.update();
+  }
 
   dividingline();
 
@@ -74,6 +79,10 @@ function draw() {
         checkHint();
       }, 1000);
     }
+  }
+  
+  if(gamestate == "played"){
+    restartMenu();
   }
 
   if (gamestate == "won") {
@@ -105,8 +114,8 @@ function draw() {
   if (hintScreenShowing && !hintScreenShown) {
     hintScreen();
   }
-  
-  if(dataScreenShowing){
+
+  if (dataScreenShowing) {
     dataScreen();
   }
 
@@ -121,10 +130,11 @@ function draw() {
       b.show();
     }
   }
-
+  
+  
 }
 
-function keyPressed() {
+async function keyPressed() {
   if (key == "g") {
     inputArr.push("H");
     inputArr.push("E");
@@ -137,14 +147,8 @@ function keyPressed() {
   }
 
   if (key == "r") {
-    removeItem("totalscore");
-    removeItem("totalplays");
-    removeItem("streak");
-
-    console.log("today " + score);
-    console.log("total " + totalScore);
-    console.log("streak " + streak);
-    console.log("average " + averageScore);
+    removeItem("data");
+    removeItem("todaysBoard");
   }
 
   if (key == "t") {
@@ -155,5 +159,9 @@ function keyPressed() {
     inputArr.push(target[4]);
     newGuess();
     checkIfWon();
+  }
+
+  if (key == "d") {
+    await getTodaysBoard();
   }
 }

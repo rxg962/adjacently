@@ -11,16 +11,11 @@ class Block {
     this.DMatch = -1;
     this.letter = letter;
     this.colour = color(255);
+    this.txtcolour = color(0);
     this.index = index;
     this.matched = false;
     this.incorrectLetter = false;
     this.exploded = false;
-
-    // let colRange = floor(255/4);
-    // this.impactCol = color(random(floor(colRange/2), colRange));
-    // this.impact1Col = color(random(colRange, colRange*2));
-    // this.impact3Col = color(random(colRange*2, floor(colRange*2.5)));
-    // this.impact2Col = color(random(floor(colRange*2.5), colRange*3));
 
     this.impactCol = color(113, 10, 12);
     this.impact1Col = color(170, 14, 16);
@@ -38,16 +33,21 @@ class Block {
     let lastRowStart = blocks.length - 5;
 
     if (gamestate == "won" && this.index >= lastRowStart) {
-      fill(pinkC);
+      this.colour = pinkC;
+      // fill(pinkC);
     } else if (
       this.isNotAllowed() &&
       !this.matched &&
       !correctLetters.includes(this.letter)
     ) {
-      fill(greyC);
+      this.colour = greyC;
+      // fill(greyC);
     } else {
-      fill(255);
+      this.colour = color(255);
+      // fill(255);
     }
+
+    fill(this.colour);
 
     if (gamestate == "lost") {
       fill(this.impact4Col);
@@ -66,16 +66,14 @@ class Block {
     rectMode(CORNER);
     let d = 3;
 
-        rect(this.x + d, this.y + d, this.w - 2 * d, this.h - 2 * d, 15);
-
-    // rect(this.x + d, this.y + d, this.w - 2 * d, this.h - 2 * d, 15);
+    rect(this.x + d, this.y + d, this.w - 2 * d, this.h - 2 * d, 15);
 
     this.showMatch();
 
     //TEXTCOLOUR
     textSize(min(w, h) / 2);
     if (gamestate == "won" && this.index >= lastRowStart) {
-      fill(255);
+      this.txtcolour = color(255);
     } else if (
       target &&
       target.includes(this.letter) &&
@@ -84,10 +82,12 @@ class Block {
         this.RMatch > -1 ||
         this.DMatch > -1)
     ) {
-      fill(pinkC);
+      this.txtcolour = pinkC;
     } else {
-      fill(0);
+      this.txtcolour = color(0);
     }
+    
+    fill(this.txtcolour);
 
     if (gamestate == "lost") {
       fill(0);
