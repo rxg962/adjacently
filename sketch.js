@@ -98,7 +98,7 @@ function draw() {
     }
   }
   
-  if(gamestate !="startmenu"){
+  if(gamestate !="startmenu" && gamestate != "playing"){
     restartMenu();
   }
 
