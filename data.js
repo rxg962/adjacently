@@ -184,8 +184,8 @@ class dataButton {
     ) {
       this.pressed = true;
 
-      setTimeout(() => {
-        getData();
+      setTimeout(async() => {
+        await getData();
         dataScreenShowing = true;
       }, 100);
     }
