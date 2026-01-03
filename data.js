@@ -294,6 +294,9 @@ function dataScreen() {
   let exButtonY = helpScreenY - helpScreenH / 2 + buffer;
   exButton = new exitButton(exButtonX, exButtonY);
   exButton.show();
+
+  fill(255,0,0);
+  rect(100, 100, 100, 100);
 }
 
 function titleDividingLine(y) {
