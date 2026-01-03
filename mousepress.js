@@ -3,7 +3,7 @@ function screenInteract() {
     for (let b of startmenuButtons) {
       b.keyPressed();
     }
-    hButton.keyPressed();
+    // hButton.keyPressed();
     dButton.keyPressed();
   }
 
@@ -39,16 +39,21 @@ function screenInteract() {
 
   if (gamestate != "startmenu") {
     hButtonTopBar.keyPressed();
-    dButtonTopBar.keyPressed();
+    dButtonTopBar.keyPressed();  
   }
 }
 
+
+
+
 function mousePressed() {
   screenInteract(mouseX, mouseY);
+  hButton.checkPress(mouseX, mouseY);
 }
 
 function touchStarted() {
   screenInteract(touches[0].x, touches[0].y);
+  hButton.checkPress(touches[0].x, touches[0].y);
   return false;
 }
 
