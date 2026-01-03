@@ -4,7 +4,7 @@ async function setup() {
   if (windowWidth < gameWidth) {
     gameWidth = windowWidth;
   }
-  createCanvas(gameWidth, windowHeight);
+  createCanvas(gameWidth, windowHeight - 75);
 
   pixelDensity(window.devicePixelRatio);
 
@@ -46,17 +46,34 @@ async function setup() {
   setUpTopBar();
 
   titleTextStartMenu();
+
+  rButton = new resetDataButton();
 }
 
 function draw() {
   background(lightblueC);
+  
+   if (dataScreenShowing) {
+    dataScreen();
+    return;
+  }
+  
+   if (helpScreenShowing) {
+    helpScreen();
+    return;
+  }
+  
+   if (hintScreenShowing && !hintScreenShown) {
+    hintScreen();
+    return;
+  }
 
   for (let b of blocks) {
     b.checkNeighbours();
     b.show();
     b.update();
   }
-  
+
   for (let b of doneBlocks) {
     b.show();
     b.update();
@@ -81,7 +98,7 @@ function draw() {
     }
   }
   
-  if(gamestate == "played"){
+  if(gamestate !="startmenu"){
     restartMenu();
   }
 
@@ -107,18 +124,6 @@ function draw() {
     }
   }
 
-  if (helpScreenShowing) {
-    helpScreen();
-  }
-
-  if (hintScreenShowing && !hintScreenShown) {
-    hintScreen();
-  }
-
-  if (dataScreenShowing) {
-    dataScreen();
-  }
-
   for (let b of bombs) {
     b.update();
     b.show();
@@ -130,8 +135,6 @@ function draw() {
       b.show();
     }
   }
-  
-  
 }
 
 async function keyPressed() {

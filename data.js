@@ -6,6 +6,10 @@ let dataScreenShowing = false;
 let lastPlayed;
 let todaysScore;
 let winOrLoss;
+let totalWins;
+let winPercentage;
+let rButton;
+let scoreDistribution = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let data = {
   tp: totalPlays,
   st: streak,
@@ -14,6 +18,9 @@ let data = {
   av: averageScore,
   sc: todaysScore,
   wl: winOrLoss,
+  tw: totalWins,
+  wp: winPercentage,
+  sd: scoreDistribution,
 };
 let todaysBoard = [];
 let doneBlocks = [];
@@ -30,6 +37,9 @@ async function getData() {
       av: 0,
       sc: 0,
       wl: null,
+      tw: 0,
+      wp: 0,
+      sd: new Array(10).fill(0),
     };
   }
 
@@ -40,8 +50,9 @@ async function getData() {
   averageScore = data.av;
   todaysScore = data.sc;
   winOrLoss = data.wl;
-  
-
+  totalWins = data.tw;
+  winPercentage = data.wp;
+  scoreDistribution = data.sd;
 
   let today = new Date();
   let yesterday = new Date();
@@ -59,7 +70,6 @@ async function getData() {
       streak = 0;
     }
   }
-
 }
 
 async function saveData() {
@@ -105,8 +115,16 @@ async function saveData() {
   }
 
   lastPlayed = today;
-  
+
   winOrLoss = gamestate;
+
+  if (winOrLoss == "won") {
+    totalWins++;
+  }
+
+  winPercentage = totalPlays != 0 ? floor((totalWins / totalPlays) * 100) : 0;
+
+  scoreDistribution[todaysScore - 1]++;
 
   await saveTodaysBoard();
 
@@ -117,6 +135,9 @@ async function saveData() {
   data.av = averageScore;
   data.sc = todaysScore;
   data.wl = winOrLoss;
+  data.tw = totalWins;
+  data.wp = winPercentage;
+  data.sd = scoreDistribution;
 
   await storeItem("data", data);
   console.log(data);
@@ -184,29 +205,121 @@ function dataScreen() {
   fill(255);
   rect(helpScreenX, helpScreenY, helpScreenW, helpScreenH, 20);
 
-  if (!averageScore) {
-    txt2 = "AVERAGE: 0";
-  } else {
-    txt2 = "AVERAGE: " + averageScore;
-  }
+  textAlign(CENTER, CENTER);
+  textSize(width / 8);
+  let cornerbuffer = width / 10;
+  let left = helpScreenX - helpScreenW / 2;
+  let top = helpScreenY - helpScreenH / 2;
+  fill(blueC);
+  text("STATS", helpScreenX, top + cornerbuffer);
 
-  if (streak == null) {
-    txt3 = "STREAK: 0";
-  } else {
-    txt3 = "STREAK: " + streak;
-  }
+  // textSize(width/12);
+  let h = textAscent() + textDescent();
+
+  titleDividingLine(helpTop + h);
+
+  fill(blueC);
+  textSize(width / 24);
+  let txt1 = "Today";
+  let txt2 = "Average";
+  let txt3 = "Streak";
+  let txt4 = "Win %";
+
+  let w1 = textWidth(txt1) / 2;
+  let w2 = textWidth(txt2) / 2;
+  let w3 = textWidth(txt3) / 2;
+  let w4 = textWidth(txt4) / 2;
 
   textAlign(CENTER, CENTER);
+
+  let txtY = helpTop + 1.75 * h;
+  text(txt1, helpScreenW * 0.25 - w1, txtY);
+  text(txt2, helpScreenW * 0.5 - w2, txtY);
+  text(txt3, helpScreenW * 0.75 - w3, txtY);
+  text(txt4, helpScreenW * 1 - w4, txtY);
+
+  let val1 = todaysScore ? todaysScore : 0;
+  let val2 = averageScore ? averageScore : 0;
+  let val3 = streak ? streak : 0;
+  let val4 = winPercentage ? winPercentage : 0;
+
   fill(blueC);
-  textSize(width / 15);
-  text(txt2, width / 2, height * 0.33);
-  text(txt3, width / 2, height * 0.66);
+  let valY = helpTop + 2.25 * h;
+  text(val1, helpScreenW * 0.25 - w1, valY);
+  text(val2, helpScreenW * 0.5 - w2, valY);
+  text(val3, helpScreenW * 0.75 - w3, valY);
+  text(val4, helpScreenW * 1 - w4, valY);
+
+  titleDividingLine(helpTop + h * 3);
+
+  fill(blueC);
+  textSize(width / 20);
+  let tentxt = "10:";
+  let wdist = textWidth(tentxt) / 2;
+  let hsmall = textAscent() + textDescent();
+  for (i = 0; i < 10; i++) {
+    let index = i + 1;
+    let distamt = scoreDistribution[i] ? scoreDistribution[i] : 0;
+    let distY = helpTop + (3.75 + 0.5 * i) * h;
+    let barW = map(distamt, 0, totalPlays, 0, helpScreenW * 0.75);
+    let disttxt = text(index + ": ", helpScreenW * 0.25 - w1, distY);
+    let offset = wdist * 1;
+    
+    rectMode(CORNER);
+    let c1 = color(255);
+    let c2 = blueC;
+    let d = helpScreenW * 0.75;
+    let x = helpScreenW * 0.25 - wdist + offset;
+    let y = distY - hsmall / 4;
+    for (let i = 0; i < barW; i++) {
+      let index = map(i, 0, barW, 0, 1);
+      let c = lerpColor(c1, c2, index);
+      fill(c);
+      rect(x + i, y, 1, hsmall / 2);
+    }
+
+    // rect(
+    //   helpScreenW * 0.25 - wdist + offset,
+    //   distY - hsmall / 4,
+    //   barW,
+    //   hsmall / 2
+    // );
+    // text(index + ": " + barW, helpScreenW * 0.25 - w1, distY);
+  }
+
+  // rButton.show();
 
   let buffer = width / 20;
   let exButtonX = helpScreenX + helpScreenW / 2 - buffer;
   let exButtonY = helpScreenY - helpScreenH / 2 + buffer;
   exButton = new exitButton(exButtonX, exButtonY);
   exButton.show();
+}
+
+function titleDividingLine(y) {
+  let c1 = color(255);
+  let c2 = blueC;
+  let d = helpScreenW / 2 - 2;
+  textSize(width / 12);
+  let h = textAscent() + textDescent();
+  let w = height / 75;
+  let x = helpScreenX;
+  this.y = y;
+  noStroke();
+  rectMode(CENTER);
+  for (let i = 0; i < d; i++) {
+    let index = map(i, 0, d, 0, 1);
+    let c = lerpColor(c1, c2, index);
+    fill(c);
+    rect(x - d + i, this.y, 1, w);
+  }
+
+  for (let i = 0; i < d; i++) {
+    let index = map(i, 0, d, 0, 1);
+    let c = lerpColor(c2, c1, index);
+    fill(c);
+    rect(x + i, this.y, 1, w);
+  }
 }
 
 async function saveTodaysBoard() {
@@ -232,7 +345,7 @@ async function saveTodaysBoard() {
 
 async function getTodaysBoard() {
   await getData();
-  
+
   let today = new Date();
   let T = today.toDateString();
   let LP;
@@ -352,5 +465,59 @@ class DoneBlock {
     } else {
       this.y = this.finishY;
     }
+  }
+}
+
+class resetDataButton {
+  constructor() {
+    this.x = helpScreenX;
+    this.w = width * 0.2;
+    this.h = height * 0.1;
+    let bottom = helpScreenY + helpScreenH / 2;
+    this.y = bottom - this.h;
+    this.txt = "Reset";
+    this.colour = blueC;
+    this.pressed = false;
+  }
+
+  show() {
+    if (this.pressed) {
+      navigator.vibrate(1);
+      this.colour = darkblueC;
+    } else {
+      this.colour = blueC;
+    }
+
+    noStroke();
+    rectMode(CENTER);
+    fill(darkblueC);
+    rect(this.x + shadowSize, this.y + shadowSize, this.w, this.h, 20);
+    fill(this.colour);
+    rect(this.x, this.y, this.w, this.h, 20);
+    fill(255);
+    textSize(width / 15);
+    textAlign(CENTER, CENTER);
+    let textX = this.x;
+    let textY = this.y;
+    text(this.txt, textX, textY);
+  }
+
+  keyPressed() {
+    if (
+      mouseX > this.x - this.w / 2 &&
+      mouseX < this.x + this.w / 2 &&
+      mouseY > this.y - this.h / 2 &&
+      mouseY < this.y + this.h / 2
+    ) {
+      this.pressed = true;
+      setTimeout(async () => {
+        await removeItem("data");
+        await getData();
+      }, 100);
+    }
+
+    setTimeout(() => {
+      this.pressed = false;
+    }, 100);
   }
 }
