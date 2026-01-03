@@ -76,6 +76,8 @@ function gameStartMenu() {
     height * 0.8 + buttonW / 8,
     buttonW / 8
   );
+
+  rButton.show();
 }
 
 function fallingBlock() {
