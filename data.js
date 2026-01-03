@@ -1,13 +1,13 @@
-let totalScore;
-let totalPlays;
-let averageScore;
-let streak;
+let totalScore = 0;
+let totalPlays = 0;
+let averageScore = 0;
+let streak = 0;
 let dataScreenShowing = false;
-let lastPlayed;
-let todaysScore;
-let winOrLoss;
-let totalWins;
-let winPercentage;
+let lastPlayed = 0;
+let todaysScore = 0;
+let winOrLoss = undefined;
+let totalWins = 0;
+let winPercentage = 0;
 let rButton;
 let scoreDistribution = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let data = {
