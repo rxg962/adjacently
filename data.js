@@ -287,7 +287,7 @@ function dataScreen() {
     // text(index + ": " + barW, helpScreenW * 0.25 - w1, distY);
   }
 
-  rButton.show();
+ // rButton.show();
 
   let buffer = width / 20;
   let exButtonX = helpScreenX + helpScreenW / 2 - buffer;
