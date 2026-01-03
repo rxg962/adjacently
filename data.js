@@ -287,16 +287,13 @@ function dataScreen() {
     // text(index + ": " + barW, helpScreenW * 0.25 - w1, distY);
   }
 
-  // rButton.show();
+  rButton.show();
 
   let buffer = width / 20;
   let exButtonX = helpScreenX + helpScreenW / 2 - buffer;
   let exButtonY = helpScreenY - helpScreenH / 2 + buffer;
   exButton = new exitButton(exButtonX, exButtonY);
   exButton.show();
-
-  fill(255,0,0);
-  rect(100, 100, 100, 100);
 }
 
 function titleDividingLine(y) {
