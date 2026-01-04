@@ -207,26 +207,6 @@ class helpButton {
         this.pressed = false;
       }, 100);
     }
-
-  checkPress(x, y) {
-    // Check if the click/touch is inside the button
-    if (
-      x > this.x - this.r &&
-      x < this.x + this.r &&
-      y > this.y - this.r &&
-      y < this.y + this.r
-    ) {
-      this.pressed = true;
-
-      setTimeout(() => {
-        helpScreenShowing = true;
-      }, 100);
-
-      setTimeout(() => {
-        this.pressed = false;
-      }, 100);
-    }
-  }
 }
 
 function titleTextStartMenu() {

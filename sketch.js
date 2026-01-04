@@ -4,7 +4,7 @@ async function setup() {
   if (windowWidth < gameWidth) {
     gameWidth = windowWidth;
   }
-  createCanvas(gameWidth, windowHeight);
+  createCanvas(gameWidth, windowHeight - 75);
 
   pixelDensity(window.devicePixelRatio);
 
@@ -65,7 +65,6 @@ function draw() {
   
    if (hintScreenShowing && !hintScreenShown) {
     hintScreen();
-    return;
   }
 
   for (let b of blocks) {

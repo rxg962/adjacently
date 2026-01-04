@@ -192,7 +192,7 @@ function helpAdjacentText() {
   let txtTopBuffer = 0.75;
   textH = textAscent() + textDescent();
   text(
-    "Connected letters are ADJACENT in target",
+    "Green connection: ADJACENT in target",
     width / 2,
     helpTop + (adjacenttxtY / heightDivider) * helpScreenH
   );
@@ -232,7 +232,7 @@ function helpNotAdjacentText() {
   let txtTopBuffer = 0.75;
   textH = textAscent() + textDescent();
   text(
-    "Connected letters are NOT ADJACENT in target",
+    "Yellow connection: NOT ADJACENT in target",
     width / 2,
     helpTop + (notadjacenttxtY / heightDivider) * helpScreenH
   );
@@ -272,7 +272,7 @@ function helpNotTargetText() {
   let txtTopBuffer = 0.75;
   textH = textAscent() + textDescent();
   text(
-    "Grey letters are NOT in target",
+    "Grey letters: NOT in target",
     width / 2,
     helpTop + (notintargettxtY / heightDivider) * helpScreenH
   );

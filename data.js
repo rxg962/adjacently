@@ -5,10 +5,10 @@ let streak = 0;
 let dataScreenShowing = false;
 let lastPlayed = 0;
 let todaysScore = 0;
-let winOrLoss = undefined;
+let winOrLoss = 0;
 let totalWins = 0;
 let winPercentage = 0;
-let rButton;
+let rButton = 0;
 let scoreDistribution = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let data = {
   tp: totalPlays,
@@ -184,8 +184,8 @@ class dataButton {
     ) {
       this.pressed = true;
 
-      setTimeout(() => {
-        getData();
+      setTimeout(async() => {
+        await getData();
         dataScreenShowing = true;
       }, 100);
     }
