@@ -48,7 +48,6 @@ async function getData() {
   totalScore = data.ts;
   lastPlayed = data.lp;
   averageScore = data.av;
-  todaysScore = data.sc;
   winOrLoss = data.wl;
   totalWins = data.tw;
   winPercentage = data.wp;
@@ -66,7 +65,9 @@ async function getData() {
   let Y = yesterday.toDateString();
 
   if (LP != T) {
-    if (LP != Y || streak == undefined) {
+    todaysScore = 0;
+
+    if (LP != Y) {
       streak = 0;
     }
   }
@@ -108,7 +109,9 @@ async function saveData() {
     if (LP == Y) {
       streak++;
     } else {
-      streak = 1;
+      if(todaysScore == 0){
+        streak = 0;
+      }
     }
   } else if (LP == T) {
     return;
@@ -184,7 +187,7 @@ class dataButton {
     ) {
       this.pressed = true;
 
-      setTimeout(async() => {
+      setTimeout(async () => {
         await getData();
         dataScreenShowing = true;
       }, 100);
@@ -214,7 +217,8 @@ function dataScreen() {
   text("STATS", helpScreenX, top + cornerbuffer);
 
   // textSize(width/12);
-  let h = textAscent() + textDescent();
+  // let h = textAscent() + textDescent();
+  let h = helpScreenH/10;
 
   titleDividingLine(helpTop + h);
 
@@ -257,14 +261,14 @@ function dataScreen() {
   let tentxt = "10:";
   let wdist = textWidth(tentxt) / 2;
   let hsmall = textAscent() + textDescent();
-  for (i = 0; i < 10; i++) {
+  for (i = 9; i >= 0; i--) {
     let index = i + 1;
     let distamt = scoreDistribution[i] ? scoreDistribution[i] : 0;
-    let distY = helpTop + (3.75 + 0.5 * i) * h;
+    let distY = helpTop + (3.75 + 0.5 * (9 - i)) * h;
     let barW = map(distamt, 0, totalPlays, 0, helpScreenW * 0.75);
     let disttxt = text(index + ": ", helpScreenW * 0.25 - w1, distY);
     let offset = wdist * 1;
-    
+
     rectMode(CORNER);
     let c1 = color(255);
     let c2 = blueC;
