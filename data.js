@@ -253,7 +253,7 @@ for (let i = 0; i < 10; i++) {
       ? map(distamt, 0, maxscore, 0, helpScreenW * 0.7)
       : 0;
 
-  let barH = textH * 0.75;
+  let barH = textH * 0.5;
   let x = helpScreenW * 0.25 + wdist;
   let barY = distY - barH / 2;
 
