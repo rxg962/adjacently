@@ -64,12 +64,14 @@ async function getData() {
   let T = today.toDateString();
   let Y = yesterday.toDateString();
 
-  if (LP != T) {
-    todaysScore = 0;
+ if (LP != T) {
+    todaysScore = "-";
 
     if (LP != Y) {
       streak = 0;
     }
+  } else if(LP == T && todaysScore == 0){
+    streak = 0;
   }
 }
 
