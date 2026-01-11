@@ -67,8 +67,7 @@ async function getData() {
 
   if (LP != T) {
     todaysScore = "-";
-
-    if (LP != Y) {
+    if (LP != Y || winOrLoss !== "won") {
       streak = 0;
     }
   } else if (LP == T && todaysScore == 0) {
