@@ -223,6 +223,15 @@ function dataScreen() {
   let tentxt = "10";
   let wdist = textWidth(tentxt) / 2;
   let hsmall = textAscent() + textDescent();
+  
+  maxscore = 0;
+   for (i = 0; i < 10; i++) {
+  let distamt = scoreDistribution[i] ? scoreDistribution[i] : 0;
+    if (distamt > maxscore) {
+      maxscore = distamt;
+    }
+   }
+  
   for (i = 0; i < 10; i++) {
     textSize(width / 20);
     let index = i + 1;
@@ -231,12 +240,8 @@ function dataScreen() {
     } else {
       fill(blueC);
     }
-    
-    let maxscore = 0;
+
     let distamt = scoreDistribution[i] ? scoreDistribution[i] : 0;
-    if(distamt > maxscore){
-      maxscore = distamt;
-    }
     let distY = helpTop + (4.5 + 0.5 * (9 - i)) * h;
     let barW = map(distamt, 0, maxscore, 0, helpScreenW * 0.75);
     let disttxt = text(index + " ", helpScreenW * 0.25 - w1, distY);
