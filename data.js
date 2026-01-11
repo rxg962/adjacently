@@ -108,18 +108,17 @@ async function saveData() {
       averageScore = 0;
     }
 
-   if (LP == Y) {
+    if (LP == Y) {
       streak++;
       if (todaysScore == 0) {
         streak = 0;
-      } 
-    } else {
-        streak = 1;
       }
+    } else {
+      streak = 1;
+    }
   } else if (LP == T) {
     return;
   }
-
 
   lastPlayed = today;
 
@@ -127,6 +126,10 @@ async function saveData() {
 
   if (winOrLoss == "won") {
     totalWins++;
+  }
+
+  if (winOrLoss == "lost") {
+    streak = 0;
   }
 
   winPercentage = totalPlays != 0 ? floor((totalWins / totalPlays) * 100) : 0;
@@ -273,6 +276,32 @@ function dataScreen() {
   let exButtonY = helpScreenY - helpScreenH / 2 + buffer;
   exButton = new exitButton(exButtonX, exButtonY);
   exButton.show();
+}
+
+function titleDividingLine(y) {
+  let c1 = color(255);
+  let c2 = blueC;
+  let d = helpScreenW / 2 - 2;
+  textSize(width / 12);
+  let h = textAscent() + textDescent();
+  let w = height / 75;
+  let x = helpScreenX;
+  this.y = y;
+  noStroke();
+  rectMode(CENTER);
+  for (let i = 0; i < d; i++) {
+    let index = map(i, 0, d, 0, 1);
+    let c = lerpColor(c1, c2, index);
+    fill(c);
+    rect(x - d + i, this.y, 1, w);
+  }
+
+  for (let i = 0; i < d; i++) {
+    let index = map(i, 0, d, 0, 1);
+    let c = lerpColor(c2, c1, index);
+    fill(c);
+    rect(x + i, this.y, 1, w);
+  }
 }
 
 async function saveTodaysBoard() {
