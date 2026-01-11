@@ -68,10 +68,15 @@ function mousePressed() {
 }
 
 function touchStarted() {
-  screenInteract(touches[0].x, touches[0].y);
+if (touches.length > 0) {
+    screenInteract(touches[0].x, touches[0].y);
+  }
+  return false;
 }
 
 function touchEnded() {
-  screenInteract(touches[0].x, touches[0].y);
+if (touches.length > 0) {
+    screenInteract(touches[0].x, touches[0].y);
+  }
   return false;
 }
