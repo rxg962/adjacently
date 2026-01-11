@@ -38,7 +38,7 @@ async function shareText() {
 
   // First line still drawn on canvas
 
-  let sharetxtTop = shareTop + shareScreenH * 0.3;
+  let sharetxtTop = shareTop + shareScreenH * 0.25;
 
   let line1 = "I just played ADJACENTLY and scored " + todaysScore + "!";
 
