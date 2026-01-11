@@ -4,7 +4,7 @@ async function setup() {
   if (windowWidth < gameWidth) {
     gameWidth = windowWidth;
   }
-  createCanvas(gameWidth, windowHeight - 75);
+  createCanvas(gameWidth, windowHeight);
 
   pixelDensity(window.devicePixelRatio);
 
