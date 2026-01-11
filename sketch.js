@@ -105,7 +105,7 @@ function draw() {
       k.show();
     }
 
-    if (!hintChosen && guessY < playAreaBottom - 3 * h) {
+   if (!hintChosen && blocks.length >= 15) {
       setTimeout(() => {
         checkHint();
       }, 1000);
