@@ -244,7 +244,7 @@ function dataScreen() {
     let distamt = scoreDistribution[i] ? scoreDistribution[i] : 0;
     let distY = helpTop + (4.5 + 0.5 * (9 - i)) * h;
 let barW =
-      maxscore > 0 ? map(distamt, 0, maxscore, 0, helpScreenW * 0.75) : 0;
+      maxscore > 0 ? map(distamt, 0, maxscore, 0, helpScreenW * 0.7) : 0;
     let disttxt = text(index + " ", helpScreenW * 0.25 - w1, distY);
     let offset = wdist * 1;
 
