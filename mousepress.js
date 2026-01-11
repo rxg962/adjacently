@@ -40,7 +40,7 @@ function screenInteract() {
     }
   }
 
-  if (
+  if ( targetType == infinitetxt && 
     gamestate == "won" ||
     gamestate == "lost" ||
     (gamestate == "played" && playAgButton && !playAgButton.falling)
@@ -49,6 +49,7 @@ function screenInteract() {
   }
 
   if (
+   targetType == dailytxt && 
     gamestate == "won" ||
     gamestate == "lost" ||
     (gamestate == "played" && sButton && !sButton.falling)

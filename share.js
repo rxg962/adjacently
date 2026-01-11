@@ -48,14 +48,14 @@ async function shareText() {
   }
 
   let fireworkString = fireworkEmojistoShow.join("");
-  
- let line2;
+
+  let line2;
   if (todaysScore == 0) {
     line2 = "😭 💣 😭";
   } else {
     line2 = fireworkString;
   }
-  
+
   let line3 = "Play @ " + shareURL;
 
   shareTxtDiv = createDiv(line1 + "<br>" + line2 + "<br><br>" + line3);

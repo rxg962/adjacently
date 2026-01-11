@@ -572,10 +572,10 @@ class homeButton {
       this.colour = blueC;
     }
 
-//     noStroke();
-//     rectMode(CENTER);
-//     fill(this.colour);
-//     rect(this.x, this.y, this.w, this.h, 20);
+    //     noStroke();
+    //     rectMode(CENTER);
+    //     fill(this.colour);
+    //     rect(this.x, this.y, this.w, this.h, 20);
   }
 
   keyPressed() {

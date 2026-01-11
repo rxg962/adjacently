@@ -334,11 +334,13 @@ async function restartMenu() {
     }
   }
 
-  // playAgButton.show();
-  // playAgButton.update();
-  
-  sButton.show();
-  sButton.update();
+  if (targetType == dailytxt) {
+    sButton.show();
+    sButton.update();
+  } else if (targetType == infinitetxt) {
+    playAgButton.show();
+    playAgButton.update();
+  }
 
   restartTxtRect.show();
   restartTxtRect.update();

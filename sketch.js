@@ -1,10 +1,12 @@
+// document.addEventListener('touchstart', {});
+
 async function setup() {
   //CREATE CANVAS
   gameWidth = 500;
   if (windowWidth < gameWidth) {
     gameWidth = windowWidth;
   }
-  createCanvas(gameWidth, windowHeight);
+  createCanvas(gameWidth, windowHeight - 75);
 
   pixelDensity(window.devicePixelRatio);
 
@@ -54,7 +56,7 @@ async function setup() {
   rButton = new resetDataButton();
 
   cButton = new copyButton();
-  
+
   hoButton = new homeButton();
 }
 
@@ -149,6 +151,23 @@ function draw() {
       b.update();
     }
   }
+
+  //DELETE ALL THIS AFTER DEBUGGING IPHONE ISSUES
+  if (touches.length > 0) {
+    let touchX = Math.round(touches[0].x);
+    let touchY = Math.round(touches[0].y);
+    let touch = touchX + " & " + touchY;
+    let x = width / 2 - buttonW / 2;
+    let y = height * 0.3;
+    let w = buttonW;
+    let h = buttonH;
+
+    if (touchX > x && touchX < x + w && touchY > y && touchY < y + h) {
+      fill(255, 0, 0, 255);
+    }
+    text(touch, width / 2, height / 2);
+  }
+  
 }
 
 async function keyPressed() {
