@@ -209,11 +209,19 @@ function dataScreen() {
 
   titleDividingLine(helpTop + h * 3);
 
+  fill(blueC);
+  textSize(width / 15);
+  textAlign(CENTER);
+  let txtPD = "Point Distribution";
+  let wPD = textWidth(txtPD) / 2;
+  text(txtPD, width / 2, helpTop + 3.75 * h);
+
   textSize(width / 20);
-  let tentxt = "10:";
+  let tentxt = "10";
   let wdist = textWidth(tentxt) / 2;
   let hsmall = textAscent() + textDescent();
   for (i = 0; i < 10; i++) {
+    textSize(width / 20);
     let index = i + 1;
     if (todaysScore !== "-" && todaysScore === index) {
       fill(pinkC);
@@ -221,27 +229,43 @@ function dataScreen() {
       fill(blueC);
     }
     let distamt = scoreDistribution[i] ? scoreDistribution[i] : 0;
-    let distY = helpTop + (3.75 + 0.5 * (9 - i)) * h;
+    let distY = helpTop + (4.5 + 0.5 * (9 - i)) * h;
     let barW = map(distamt, 0, totalPlays, 0, helpScreenW * 0.75);
-    let disttxt = text(index + ": ", helpScreenW * 0.25 - w1, distY);
+    let disttxt = text(index + " ", helpScreenW * 0.25 - w1, distY);
     let offset = wdist * 1;
 
     rectMode(CORNER);
-    let c1 = color(255);
     if (todaysScore !== "-" && todaysScore === index) {
-      c2 = pinkC;
+      fill(pinkC);
     } else {
-      c2 = blueC;
+      fill(blueC);
     }
-    let d = helpScreenW * 0.75;
     let x = helpScreenW * 0.25 - wdist + offset;
     let y = distY - hsmall / 4;
-    for (let i = 0; i < barW; i++) {
-      let index = map(i, 0, barW, 0, 1);
-      let c = lerpColor(c1, c2, index);
-      fill(c);
-      rect(x + i, y, 1, hsmall / 2);
+    rect(x, y, barW, hsmall / 2);
+    if (distamt > 0) {
+      let wDA = textWidth(distamt.toString()) * 2;
+      textAlign(CENTER);
+      fill(255);
+      textSize(width / 35);
+      text(distamt, x + barW - wDA, distY);
     }
+
+    // let c1 = color(255);
+    // if (todaysScore !== "-" && todaysScore === index) {
+    //   c2 = pinkC;
+    // } else {
+    //   c2 = blueC;
+    // }
+    // let d = helpScreenW * 0.75;
+    // let x = helpScreenW * 0.25 - wdist + offset;
+    // let y = distY - hsmall / 4;
+    // for (let i = 0; i < barW; i++) {
+    //   let index = map(i, 0, barW, 0, 1);
+    //   let c = lerpColor(c1, c2, index);
+    //   fill(c);
+    //   rect(x + i, y, 1, hsmall / 2);
+    // }
   }
 
   let buffer = width / 20;
@@ -249,32 +273,6 @@ function dataScreen() {
   let exButtonY = helpScreenY - helpScreenH / 2 + buffer;
   exButton = new exitButton(exButtonX, exButtonY);
   exButton.show();
-}
-
-function titleDividingLine(y) {
-  let c1 = color(255);
-  let c2 = blueC;
-  let d = helpScreenW / 2 - 2;
-  textSize(width / 12);
-  let h = textAscent() + textDescent();
-  let w = height / 75;
-  let x = helpScreenX;
-  this.y = y;
-  noStroke();
-  rectMode(CENTER);
-  for (let i = 0; i < d; i++) {
-    let index = map(i, 0, d, 0, 1);
-    let c = lerpColor(c1, c2, index);
-    fill(c);
-    rect(x - d + i, this.y, 1, w);
-  }
-
-  for (let i = 0; i < d; i++) {
-    let index = map(i, 0, d, 0, 1);
-    let c = lerpColor(c2, c1, index);
-    fill(c);
-    rect(x + i, this.y, 1, w);
-  }
 }
 
 async function saveTodaysBoard() {
