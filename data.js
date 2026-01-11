@@ -109,17 +109,18 @@ async function saveData() {
       averageScore = 0;
     }
 
-    if (LP == Y) {
+   if (LP == Y) {
       streak++;
       if (todaysScore == 0) {
         streak = 0;
-      } else {
+      } 
+    } else {
         streak = 1;
       }
-    }
   } else if (LP == T) {
     return;
   }
+
 
   lastPlayed = today;
 
