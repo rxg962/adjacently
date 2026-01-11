@@ -40,7 +40,12 @@ async function shareText() {
 
   let sharetxtTop = shareTop + shareScreenH * 0.25;
 
-  let line1 = "I just played ADJACENTLY and scored " + todaysScore + "!";
+  let line1;
+  if (todaysScore == 1) {
+    line1 = "I just scored " + todaysScore + " point playing ADJACENTLY!";
+  } else if (todaysScore != 1) {
+    line1 = "I just scored " + todaysScore + " points playing ADJACENTLY!";
+  }
 
   let fireworkEmojistoShow = [];
   for (i = 0; i < todaysScore; i++) {
@@ -56,7 +61,7 @@ async function shareText() {
     line2 = fireworkString;
   }
 
-  let line3 = "Play @ " + shareURL;
+  let line3 = "Try to beat me: " + shareURL;
 
   shareTxtDiv = createDiv(line1 + "<br>" + line2 + "<br><br>" + line3);
 
