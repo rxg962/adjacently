@@ -137,7 +137,9 @@ class exitButton {
         hintScreenShown = true;
         dataScreenShowing = false;
         shareScreenShowing = false;
-        shareTxtDiv.remove();
+        if (shareTxtDiv) {
+          shareTxtDiv.remove();
+        }
         shareTxtDiv = null;
       }, 100);
     }
