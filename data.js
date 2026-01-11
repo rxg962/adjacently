@@ -247,7 +247,7 @@ function dataScreen() {
     let y = distY - hsmall / 4;
     rect(x, y, barW, hsmall / 2);
     if (distamt > 0) {
-      let wDA = textWidth(distamt.toString()) * 2;
+      let wDA = textWidth(distamt.toString()) * 1.75;
       textAlign(CENTER);
       fill(255);
       textSize(width / 35);
