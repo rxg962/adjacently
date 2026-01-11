@@ -209,13 +209,17 @@ function dataScreen() {
 
   titleDividingLine(helpTop + h * 3);
 
-  fill(blueC);
   textSize(width / 20);
   let tentxt = "10:";
   let wdist = textWidth(tentxt) / 2;
   let hsmall = textAscent() + textDescent();
   for (i = 0; i < 10; i++) {
     let index = i + 1;
+    if(index === todaysScore){
+      fill(pinkC);
+    } else{
+      fill(blueC);
+    } 
     let distamt = scoreDistribution[i] ? scoreDistribution[i] : 0;
     let distY = helpTop + (3.75 + 0.5 * (9 - i)) * h;
     let barW = map(distamt, 0, totalPlays, 0, helpScreenW * 0.75);
@@ -224,7 +228,11 @@ function dataScreen() {
 
     rectMode(CORNER);
     let c1 = color(255);
-    let c2 = blueC;
+    if(index === todaysScore){
+      c2 = pinkC;
+    } else{
+      c2 = blueC;
+    } 
     let d = helpScreenW * 0.75;
     let x = helpScreenW * 0.25 - wdist + offset;
     let y = distY - hsmall / 4;
