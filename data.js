@@ -222,16 +222,16 @@ function dataScreen() {
   textSize(width / 20);
   let tentxt = "10";
   let wdist = textWidth(tentxt) / 2;
-  let hsmall = textAscent() + textDescent();
-  
+  let hsmall = (textAscent() + textDescent())/2;
+
   maxscore = 0;
-   for (i = 0; i < 10; i++) {
-  let distamt = scoreDistribution[i] ? scoreDistribution[i] : 0;
+  for (i = 0; i < 10; i++) {
+    let distamt = scoreDistribution[i] ? scoreDistribution[i] : 0;
     if (distamt > maxscore) {
       maxscore = distamt;
     }
-   }
-  
+  }
+
   for (i = 0; i < 10; i++) {
     textSize(width / 20);
     let index = i + 1;
@@ -243,21 +243,21 @@ function dataScreen() {
 
     let distamt = scoreDistribution[i] ? scoreDistribution[i] : 0;
     let distY = helpTop + (4.5 + 0.5 * (9 - i)) * h;
-let barW =
+    let barW =
       maxscore > 0 ? map(distamt, 0, maxscore, 0, helpScreenW * 0.7) : 0;
     let disttxt = text(index + " ", helpScreenW * 0.25 - w1, distY);
     let offset = wdist * 1;
 
     rectMode(CORNER);
     let x = helpScreenW * 0.25 - wdist + offset;
-    let y = distY - hsmall / 4;
-    rect(x, y, barW, hsmall / 2);
+    let y = distY - hsmall * 0.75;
+    rect(x, y, barW, hsmall);
     if (distamt > 0) {
       let wDA = textWidth(distamt.toString()) * 1.75;
       textAlign(CENTER);
       fill(255);
       textSize(width / 35);
-      text(distamt, x + barW - wDA, distY);
+      text(distamt, x + barW - wDA, distY - hsmall * 0.25);
     }
 
     // let c1 = color(255);
