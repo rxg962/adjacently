@@ -131,7 +131,9 @@ async function saveData() {
 
   winPercentage = totalPlays != 0 ? floor((totalWins / totalPlays) * 100) : 0;
 
-  scoreDistribution[todaysScore - 1]++;
+  if (todaysScore > 0) {
+    scoreDistribution[todaysScore - 1]++;
+  }
 
   await saveTodaysBoard();
 
