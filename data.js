@@ -45,6 +45,7 @@ async function getData() {
 
   totalPlays = data.tp;
   streak = data.st;
+  todaysScore = data.sc;
   totalScore = data.ts;
   lastPlayed = data.lp;
   averageScore = data.av;
@@ -64,13 +65,13 @@ async function getData() {
   let T = today.toDateString();
   let Y = yesterday.toDateString();
 
- if (LP != T) {
+  if (LP != T) {
     todaysScore = "-";
 
     if (LP != Y) {
       streak = 0;
     }
-  } else if(LP == T && todaysScore == 0){
+  } else if (LP == T && todaysScore == 0) {
     streak = 0;
   }
 }
@@ -110,9 +111,10 @@ async function saveData() {
 
     if (LP == Y) {
       streak++;
-    } else {
-      if(todaysScore == 0){
+      if (todaysScore == 0) {
         streak = 0;
+      } else {
+        streak = 1;
       }
     }
   } else if (LP == T) {
@@ -148,59 +150,6 @@ async function saveData() {
   console.log(data);
 }
 
-class dataButton {
-  constructor(x, y, r) {
-    this.x = x;
-    this.y = y;
-    this.r = r;
-    this.txt = "!";
-    this.colour = undefined;
-    this.pressed = false;
-  }
-
-  show() {
-    if (this.pressed) {
-      navigator.vibrate(1);
-      this.colour = darkblueC;
-    } else {
-      this.colour = blueC;
-    }
-
-    if (this.r > width / 20) {
-      noStroke();
-      fill(darkblueC);
-      circle(this.x + shadowSize / 2, this.y + shadowSize / 2, this.r * 2);
-    }
-
-    fill(this.colour);
-    circle(this.x, this.y, this.r * 2);
-    fill(255);
-    textSize(this.r);
-    textAlign(CENTER, CENTER);
-    text(this.txt, this.x, this.y);
-  }
-
-  keyPressed() {
-    if (
-      mouseX > this.x - this.r &&
-      mouseX < this.x + this.r &&
-      mouseY > this.y - this.r &&
-      mouseY < this.y + this.r
-    ) {
-      this.pressed = true;
-
-      setTimeout(async () => {
-        await getData();
-        dataScreenShowing = true;
-      }, 100);
-    }
-
-    setTimeout(() => {
-      this.pressed = false;
-    }, 100);
-  }
-}
-
 function dataScreen() {
   rectMode(CORNER);
   fill(backgroundC);
@@ -220,7 +169,7 @@ function dataScreen() {
 
   // textSize(width/12);
   // let h = textAscent() + textDescent();
-  let h = helpScreenH/10;
+  let h = helpScreenH / 10;
 
   titleDividingLine(helpTop + h);
 
@@ -263,7 +212,7 @@ function dataScreen() {
   let tentxt = "10:";
   let wdist = textWidth(tentxt) / 2;
   let hsmall = textAscent() + textDescent();
-  for (i = 9; i >= 0; i--) {
+  for (i = 0; i < 10; i++) {
     let index = i + 1;
     let distamt = scoreDistribution[i] ? scoreDistribution[i] : 0;
     let distY = helpTop + (3.75 + 0.5 * (9 - i)) * h;
@@ -283,17 +232,7 @@ function dataScreen() {
       fill(c);
       rect(x + i, y, 1, hsmall / 2);
     }
-
-    // rect(
-    //   helpScreenW * 0.25 - wdist + offset,
-    //   distY - hsmall / 4,
-    //   barW,
-    //   hsmall / 2
-    // );
-    // text(index + ": " + barW, helpScreenW * 0.25 - w1, distY);
   }
-
-  // rButton.show();
 
   let buffer = width / 20;
   let exButtonX = helpScreenX + helpScreenW / 2 - buffer;
@@ -471,59 +410,5 @@ class DoneBlock {
     } else {
       this.y = this.finishY;
     }
-  }
-}
-
-class resetDataButton {
-  constructor() {
-    this.x = helpScreenX;
-    this.w = width * 0.2;
-    this.h = height * 0.1;
-    let bottom = helpScreenY + helpScreenH / 2;
-    this.y = bottom - this.h;
-    this.txt = "Reset";
-    this.colour = blueC;
-    this.pressed = false;
-  }
-
-  show() {
-    if (this.pressed) {
-      navigator.vibrate(1);
-      this.colour = darkblueC;
-    } else {
-      this.colour = blueC;
-    }
-
-    noStroke();
-    rectMode(CENTER);
-    fill(darkblueC);
-    rect(this.x + shadowSize, this.y + shadowSize, this.w, this.h, 20);
-    fill(this.colour);
-    rect(this.x, this.y, this.w, this.h, 20);
-    fill(255);
-    textSize(width / 15);
-    textAlign(CENTER, CENTER);
-    let textX = this.x;
-    let textY = this.y;
-    text(this.txt, textX, textY);
-  }
-
-  keyPressed() {
-    if (
-      mouseX > this.x - this.w / 2 &&
-      mouseX < this.x + this.w / 2 &&
-      mouseY > this.y - this.h / 2 &&
-      mouseY < this.y + this.h / 2
-    ) {
-      this.pressed = true;
-      setTimeout(async () => {
-        await removeItem("data");
-        await getData();
-      }, 100);
-    }
-
-    setTimeout(() => {
-      this.pressed = false;
-    }, 100);
   }
 }

@@ -1,6 +1,7 @@
 let topBarH;
 let hButtonTopBar;
 let dButtonTopBar;
+let hoButton;
 
 function drawTopBar() {
   rectMode(CORNER);
@@ -10,6 +11,7 @@ function drawTopBar() {
 
   hButtonTopBar.show();
   dButtonTopBar.show();
+  hoButton.update();
 }
 
 function setUpTopBar() {
@@ -34,6 +36,7 @@ class TitleBlockTopBar {
     this.h = this.w;
     this.random = random(-3, 3);
     this.y = (topBarH - this.h) / 2 + this.random;
+    this.startY = (topBarH - this.h) / 2;
     this.letter = letter;
     this.rand = random(1);
   }
@@ -57,5 +60,11 @@ class TitleBlockTopBar {
     textSize(16);
     textAlign(CENTER, CENTER);
     text(this.letter, this.x + this.w / 2, this.y + this.h / 2);
+  }
+  
+  update(){ 
+    let offset = map(sin(this.random), -1, 1, -3, 3);
+    this.y = this.startY + offset;
+    this.random += random(0.03,0.07);
   }
 }

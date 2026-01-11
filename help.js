@@ -14,56 +14,12 @@ let notintargetblockY = 21;
 let longtextsize;
 
 
-function setupHelpscreen() {
+function setupHelpScreen() {
   createHelpScreenBoundaries();
   makeHelpTargetBlocks();
   makeHelpAdjacentBlocks();
   makeHelpNotAdjacentBlocks();
   makeHelpNotTargetBlocks();
-}
-
-
-
-class exitButton {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-    this.r = buttonW / 15;
-    this.txt = "X";
-    this.colour = greyC;
-    this.pressed = false;
-  }
-
-  show() {
-    fill(this.colour);
-    noStroke();
-    circle(this.x, this.y, this.r * 2);
-    fill(255);
-    textSize(this.r);
-    textAlign(CENTER, CENTER);
-    text(this.txt, this.x, this.y);
-  }
-
-  keyPressed() {
-    if (
-      mouseX > this.x - this.r &&
-      mouseX < this.x + this.r &&
-      mouseY > this.y - this.r &&
-      mouseY < this.y + this.r
-    ) {
-      this.pressed = true;
-      setTimeout(() => {
-        helpScreenShowing = false;
-        hintScreenShowing = false;
-        hintScreenShown = true;
-        dataScreenShowing = false;
-      }, 100);
-    }
-
-    setTimeout(() => {
-      this.pressed = false;
-    }, 100);
-  }
 }
 
 function helpScreen() {

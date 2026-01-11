@@ -4,7 +4,7 @@ async function setup() {
   if (windowWidth < gameWidth) {
     gameWidth = windowWidth;
   }
-  createCanvas(gameWidth, windowHeight);
+  createCanvas(gameWidth, windowHeight - 75);
 
   pixelDensity(window.devicePixelRatio);
 
@@ -39,31 +39,44 @@ async function setup() {
   dividingline();
   playAgButton = new playAgainButton();
 
-  setupHelpscreen();
+  setupHelpScreen();
 
-  setupHintscreen();
+  setupHintScreen();
+
+  setupShareScreen();
+
+  sButton = new shareButton();
 
   setUpTopBar();
 
   titleTextStartMenu();
 
   rButton = new resetDataButton();
+
+  cButton = new copyButton();
+  
+  hoButton = new homeButton();
 }
 
 function draw() {
   background(lightblueC);
-  
-   if (dataScreenShowing) {
+
+  if (dataScreenShowing) {
     dataScreen();
     return;
   }
-  
-   if (helpScreenShowing) {
+
+  if (helpScreenShowing) {
     helpScreen();
     return;
   }
-  
-   if (hintScreenShowing && !hintScreenShown) {
+
+  if (shareScreenShowing) {
+    shareScreen();
+    return;
+  }
+
+  if (hintScreenShowing && !hintScreenShown) {
     hintScreen();
   }
 
@@ -96,8 +109,8 @@ function draw() {
       }, 1000);
     }
   }
-  
-  if(gamestate !="startmenu" && gamestate != "playing"){
+
+  if (gamestate != "startmenu" && gamestate != "playing") {
     restartMenu();
   }
 
@@ -116,6 +129,7 @@ function draw() {
 
     for (let b of titleTextBlocksStartMenu) {
       b.show();
+      b.update();
     }
 
     for (let b of startmenuButtons) {
@@ -132,6 +146,7 @@ function draw() {
     drawTopBar();
     for (let b of titleTextBlocksTopBar) {
       b.show();
+      b.update();
     }
   }
 }

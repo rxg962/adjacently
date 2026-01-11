@@ -89,126 +89,6 @@ function fallingBlock() {
   }
 }
 
-class startMenuButton {
-  constructor(txt, x, y, w, h) {
-    this.x = x;
-    this.y = y;
-    this.w = buttonW;
-    this.h = buttonH;
-    this.txt = txt;
-    this.colour = undefined;
-    this.pressed = false;
-  }
-
-  show() {
-    if (this.pressed) {
-      navigator.vibrate(1);
-      this.colour = darkblueC;
-    } else {
-      this.colour = blueC;
-    }
-
-    noStroke();
-    rectMode(CORNER);
-    fill(darkblueC);
-    rect(this.x + shadowSize, this.y + shadowSize, this.w, this.h, 20);
-    fill(this.colour);
-    rect(this.x, this.y, this.w, this.h, 20);
-    fill(255);
-    textSize(width / 8);
-    textAlign(CENTER, CENTER);
-    let textX = this.x + this.w / 2;
-    let textY = this.y + this.h / 2;
-    text(this.txt, textX, textY);
-  }
-
-  keyPressed() {
-    if (
-      mouseX > this.x &&
-      mouseX < this.x + this.w &&
-      mouseY > this.y &&
-      mouseY < this.y + this.h
-    ) {
-      if (this.txt == "Daily") {
-        this.pressed = true;
-
-        setTimeout(async () => {
-          targetType = dailytxt;
-
-          await getTarget();
-          gamestate = "playing";
-          await getTodaysBoard();
-        }, 100);
-      }
-
-      if (this.txt == "Infinite") {
-        this.pressed = true;
-        setTimeout(() => {
-          targetType = infinitetxt;
-          getTarget();
-          gamestate = "playing";
-        }, 100);
-      }
-    }
-
-    setTimeout(() => {
-      this.pressed = false;
-    }, 100);
-  }
-}
-
-class helpButton {
-  constructor(x, y, r) {
-    this.x = x;
-    this.y = y;
-    this.r = r;
-    this.txt = "?";
-    this.colour = undefined;
-    this.pressed = false;
-  }
-
-  show() {
-    if (this.pressed) {
-      navigator.vibrate(1);
-      this.colour = darkblueC;
-    } else {
-      this.colour = blueC;
-    }
-
-    if (this.r > width / 20) {
-      noStroke();
-      fill(darkblueC);
-      circle(this.x + shadowSize / 2, this.y + shadowSize / 2, this.r * 2);
-    }
-
-    fill(this.colour);
-    circle(this.x, this.y, this.r * 2);
-    fill(255);
-    textSize(this.r);
-    textAlign(CENTER, CENTER);
-    text(this.txt, this.x, this.y);
-  }
-
-    keyPressed() {
-      if (
-        mouseX > this.x - this.r &&
-        mouseX < this.x + this.r &&
-        mouseY > this.y - this.r &&
-        mouseY < this.y + this.r
-      ) {
-        this.pressed = true;
-
-        setTimeout(() => {
-          helpScreenShowing = true;
-        }, 100);
-      }
-
-      setTimeout(() => {
-        this.pressed = false;
-      }, 100);
-    }
-}
-
 function titleTextStartMenu() {
   for (let i = 0; i < title.length; i++) {
     titleTextBlocksStartMenu.push(new TitleBlockStartMenu(i, title[i]));
@@ -222,6 +102,7 @@ class TitleBlockStartMenu {
     this.x = this.w + floor(colNo * this.w);
     this.random = random(-10, 10);
     this.y = height * 0.1 + this.random;
+    this.startY = height * 0.1;
     this.h = this.w;
     this.letter = letter;
   }
@@ -236,5 +117,94 @@ class TitleBlockStartMenu {
     textSize(16);
     textAlign(CENTER, CENTER);
     text(this.letter, this.x + this.w / 2, this.y + this.h / 2);
+  }
+  
+    update(){ 
+    let offset = map(sin(this.random), -1, 1, -3, 3);
+    this.y = this.startY + offset;
+    this.random += random(0.03,0.07);
+  }
+}
+
+class FallingBlock {
+  constructor() {
+    let cols = 10;
+    this.w = floor(width / cols);
+    let colNo = floor(random(cols));
+    this.x = floor(colNo * this.w);
+    this.y = floor(-h - this.w);
+    this.h = this.w;
+    this.letter = alphabet.charAt(floor(random(alphabet.length)));
+    this.falling = true;
+    this.acc = 0.05;
+    this.speed = 1;
+    this.rand = random(1);
+  }
+
+  show() {
+    noStroke();
+
+    let colour;
+
+    if (this.falling) {
+      colour = color(255);
+    } else {
+      if (!this.falling) {
+        if (this.rand < 0.15) {
+          colour = pinkC;
+        } else if (this.rand < 0.4) {
+          colour = greyC;
+        } else {
+          colour = color(255);
+        }
+      }
+    }
+
+    fill(colour);
+    rectMode(CORNER);
+    rect(this.x, this.y, this.w, this.h, 5);
+    noStroke();
+    fill(0, 200);
+    textSize(16);
+    textAlign(CENTER, CENTER);
+    text(this.letter, this.x + this.w / 2, this.y + this.h / 2);
+  }
+
+  update() {
+    if (!this.touchingFloor() && !this.touchingBlock()) {
+      if (this.falling) {
+        this.speed += this.acc;
+        this.y += this.speed;
+      }
+    }
+  }
+
+  touchingFloor() {
+    if (this.y + this.h >= height) {
+      this.y = height - this.h;
+      this.falling = false;
+      this.speed = 0;
+      return true;
+    }
+    return false;
+  }
+
+  touchingBlock() {
+    if (fallingBlocks.length > 1) {
+      for (let o of fallingBlocks) {
+        if (this != o && o.falling == false && o.col == this.col) {
+          let verD = abs(this.y - o.y);
+          let horD = abs(this.x - o.x);
+
+          if (horD < this.w && verD < this.h) {
+            this.y = o.y - this.h;
+            this.falling = false;
+            this.speed = 0;
+            return true;
+          }
+        }
+      }
+    }
+    return false;
   }
 }

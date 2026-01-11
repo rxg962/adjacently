@@ -334,8 +334,11 @@ async function restartMenu() {
     }
   }
 
-  playAgButton.show();
-  playAgButton.update();
+  // playAgButton.show();
+  // playAgButton.update();
+  
+  sButton.show();
+  sButton.update();
 
   restartTxtRect.show();
   restartTxtRect.update();
@@ -343,91 +346,6 @@ async function restartMenu() {
   for (let t of restartTexts) {
     t.show();
     t.update();
-  }
-}
-
-class playAgainButton {
-  constructor() {
-    this.x = (3 * width) / 4;
-    this.targetY = height - (height - dividingLineH) / 2;
-    this.w = width * 0.4;
-    this.h = height * 0.2;
-    this.y = height + this.h;
-    this.txt = "Play\nAgain";
-    this.colour = undefined;
-    this.pressed = false;
-    this.acc = 0.2;
-    this.speed = 8;
-    this.falling = true;
-  }
-
-  show() {
-    if (gamestate == "won" || (gamestate == "played" && data.wl == "won")) {
-      if (this.pressed) {
-        navigator.vibrate(1);
-        this.colour = darkpinkC;
-      } else {
-        this.colour = pinkC;
-      }
-    }
-
-    if (gamestate == "lost" || (gamestate == "played" && data.wl == "lost")) {
-      if (this.pressed) {
-        navigator.vibrate(1);
-        this.colour = darkredC;
-      } else {
-        this.colour = redC;
-      }
-    }
-
-    noStroke();
-    rectMode(CENTER);
-
-    if (gamestate == "won") {
-      fill(darkpinkC);
-    } else if (gamestate == "lost") {
-      fill(darkredC);
-    }
-
-    rect(this.x + shadowSize, this.y + shadowSize, this.w, this.h, 20);
-    fill(this.colour);
-    rect(this.x, this.y, this.w, this.h, 20);
-    fill(255);
-    textSize(width / 12);
-    textAlign(CENTER, CENTER);
-    let textX = this.x;
-    let textY = this.y;
-    text(this.txt, textX, textY);
-  }
-
-  update() {
-    if (this.y > this.targetY) {
-      this.speed += this.acc;
-      this.y -= this.speed;
-    } else {
-      this.y = this.targetY;
-      this.falling = false;
-    }
-  }
-
-  keyPressed() {
-    if (
-      mouseX > this.x - this.w / 2 &&
-      mouseX < this.x + this.w / 2 &&
-      mouseY > this.y - this.h / 2 &&
-      mouseY < this.y + this.h / 2 &&
-      !this.falling
-    ) {
-      this.pressed = true;
-      setTimeout(() => {
-        restart();
-        gamestate = "startmenu";
-      }, 100);
-    }
-
-    setTimeout(() => {
-      this.pressed = false;
-    }, 100);
   }
 }
 

@@ -7,8 +7,19 @@ function screenInteract() {
     dButton.keyPressed();
   }
 
-  if (helpScreenShowing || hintScreenShowing || dataScreenShowing) {
-    exButton.keyPressed();
+  if (
+    helpScreenShowing ||
+    hintScreenShowing ||
+    dataScreenShowing ||
+    shareScreenShowing
+  ) {
+    if (exButton) {
+      exButton.keyPressed();
+    }
+  }
+
+  if (shareScreenShowing) {
+    cButton.keyPressed();
   }
 
   if (dataScreenShowing) {
@@ -37,14 +48,20 @@ function screenInteract() {
     playAgButton.keyPressed();
   }
 
+  if (
+    gamestate == "won" ||
+    gamestate == "lost" ||
+    (gamestate == "played" && sButton && !sButton.falling)
+  ) {
+    sButton.keyPressed();
+  }
+
   if (gamestate != "startmenu") {
     hButtonTopBar.keyPressed();
-    dButtonTopBar.keyPressed();  
+    dButtonTopBar.keyPressed();
+    hoButton.keyPressed();
   }
 }
-
-
-
 
 function mousePressed() {
   screenInteract(mouseX, mouseY);

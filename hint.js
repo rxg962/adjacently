@@ -9,7 +9,7 @@ let hintTime;
 let showKeyboardHint = false;
 let hintScreenShown = false;
 
-function setupHintscreen() {
+function setupHintScreen() {
   createHintScreenBoundaries();
   hintButton = new getHintButton();
 }
@@ -108,61 +108,6 @@ function hintText() {
   textH = textAscent() + textDescent();
   let txtTopBuffer = 0.75;
   text("Need some help?", hintScreenX, hintTop);
-}
-
-class getHintButton {
-  constructor() {
-    this.x = hintScreenX;
-    this.w = width * 0.4;
-    this.h = height * 0.1;
-    this.y = hintScreenY + hintScreenH * 0.1;
-    this.txt = "Get Hint";
-    this.colour = blueC;
-    this.pressed = false;
-  }
-
-  show() {
-    if (this.pressed) {
-      navigator.vibrate(1);
-      this.colour = darkblueC;
-    } else {
-      this.colour = blueC;
-    }
-
-    if (!hintRevealed) {
-      noStroke();
-      rectMode(CENTER);
-      fill(darkblueC);
-      rect(this.x + shadowSize, this.y + shadowSize, this.w, this.h, 20);
-      fill(this.colour);
-      rect(this.x, this.y, this.w, this.h, 20);
-      fill(255);
-      textSize(width / 12);
-      textAlign(CENTER, CENTER);
-      let textX = this.x;
-      let textY = this.y;
-      text(this.txt, textX, textY);
-    }
-  }
-
-  keyPressed() {
-    if (
-      mouseX > this.x - this.w / 2 &&
-      mouseX < this.x + this.w / 2 &&
-      mouseY > this.y - this.h / 2 &&
-      mouseY < this.y + this.h / 2 &&
-      !this.falling
-    ) {
-      this.pressed = true;
-      setTimeout(() => {
-        hintRevealed = true;
-      }, 100);
-    }
-
-    setTimeout(() => {
-      this.pressed = false;
-    }, 100);
-  }
 }
 
 function checkHint() {
