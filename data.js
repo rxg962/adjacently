@@ -249,11 +249,6 @@ let barW =
     let offset = wdist * 1;
 
     rectMode(CORNER);
-    if (todaysScore !== "-" && todaysScore === index) {
-      fill(pinkC);
-    } else {
-      fill(blueC);
-    }
     let x = helpScreenW * 0.25 - wdist + offset;
     let y = distY - hsmall / 4;
     rect(x, y, barW, hsmall / 2);
