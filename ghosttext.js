@@ -8,7 +8,7 @@ function ghosttext() {
     if (!invalidWord) {
       text(inputArr[i], x, guessY + h / 2);
 
-      if (guessY < h) {
+      if (blocks.length >= 45) {
         let startX = x;
         let startY = guessY + h / 2;
         let wiggleAmt = 2;
