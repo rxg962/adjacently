@@ -24,6 +24,7 @@ let data = {
 };
 let todaysBoard = [];
 let doneBlocks = [];
+let maxscore;
 
 async function getData() {
   data = await getItem("data");
@@ -219,10 +220,12 @@ function dataScreen() {
   let wPD = textWidth(txtPD) / 2;
   text(txtPD, width / 2, helpTop + 3.75 * h);
 
-  textSize(width / 20);
+  
   let tentxt = "10";
   let wdist = textWidth(tentxt) / 2;
-  let hsmall = (textAscent() + textDescent())/2;
+  
+  // textSize(width / 20);
+  // let hsmall = (textAscent() + textDescent())/2;
 
   maxscore = 0;
   for (i = 0; i < 10; i++) {
@@ -232,33 +235,39 @@ function dataScreen() {
     }
   }
 
-  for (i = 0; i < 10; i++) {
+  textSize(width / 20);
+let textH = textAscent() + textDescent();
+
+for (let i = 0; i < 10; i++) {
+  let index = i + 1;
+  let distamt = scoreDistribution[i] || 0;
+
+  let distY = helpTop + (4.5 + 0.5 * (9 - i)) * h;
+
+  fill(todaysScore !== "-" && todaysScore === index ? pinkC : blueC);
+  textAlign(CENTER, CENTER);
+  text(index, helpScreenW * 0.25 - w1, distY);
+
+  let barW =
+    maxscore > 0
+      ? map(distamt, 0, maxscore, 0, helpScreenW * 0.7)
+      : 0;
+
+  let barH = textH * 0.75;
+  let x = helpScreenW * 0.25 + wdist;
+  let barY = distY - barH / 2;
+
+  rectMode(CORNER);
+  rect(x, barY, barW, barH);
+
+  if (distamt > 0) {
+    textSize(width / 35);
+    fill(255);
+    textAlign(RIGHT, CENTER);
+    text(distamt, x + barW - 8, distY);
     textSize(width / 20);
-    let index = i + 1;
-    if (todaysScore !== "-" && todaysScore === index) {
-      fill(pinkC);
-    } else {
-      fill(blueC);
-    }
-
-    let distamt = scoreDistribution[i] ? scoreDistribution[i] : 0;
-    let distY = helpTop + (4.5 + 0.5 * (9 - i)) * h;
-    let barW =
-      maxscore > 0 ? map(distamt, 0, maxscore, 0, helpScreenW * 0.7) : 0;
-    let disttxt = text(index + " ", helpScreenW * 0.25 - w1, distY);
-    let offset = wdist * 1;
-
-    rectMode(CORNER);
-    let x = helpScreenW * 0.25 - wdist + offset;
-    let y = distY - hsmall * 0.75;
-    rect(x, y, barW, hsmall);
-    if (distamt > 0) {
-      let wDA = textWidth(distamt.toString()) * 1.75;
-      textAlign(CENTER);
-      fill(255);
-      textSize(width / 35);
-      text(distamt, x + barW - wDA, distY - hsmall * 0.25);
-    }
+  }
+}
 
     // let c1 = color(255);
     // if (todaysScore !== "-" && todaysScore === index) {
@@ -275,7 +284,7 @@ function dataScreen() {
     //   fill(c);
     //   rect(x + i, y, 1, hsmall / 2);
     // }
-  }
+
 
   let buffer = width / 20;
   let exButtonX = helpScreenX + helpScreenW / 2 - buffer;
