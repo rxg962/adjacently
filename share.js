@@ -49,10 +49,11 @@ async function shareText() {
 
   let fireworkString = fireworkEmojistoShow.join("");
   
-   if (todaysScore == 0) {
-    let line2 = "💣";
+ let line2;
+  if (todaysScore == 0) {
+    line2 = "😭 💣 😭";
   } else {
-    let line2 = fireworkString;
+    line2 = fireworkString;
   }
   
   let line3 = "Play @ " + shareURL;
