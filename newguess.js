@@ -49,8 +49,8 @@ async function checkIfLost() {
     await saveTodaysBoard();
     gamestate = "lost";
     if (targetType == dailytxt) {
+      streak = 0;
       await saveData();
-      storeItem("streak", 0);
     }
   }
 }
