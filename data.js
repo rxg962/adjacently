@@ -259,7 +259,9 @@ for (let i = 0; i < 10; i++) {
 
   rectMode(CORNER);
   rect(x, barY, barW, barH, 5);
-  rect(x, barY, barW*0.1, barH);
+  if(barW != 0){
+    rect(x, barY, 6, barH);
+  }
 
  let factor = 10 / distamt.toString().length;
 
