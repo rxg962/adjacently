@@ -261,11 +261,13 @@ for (let i = 0; i < 10; i++) {
   rect(x, barY, barW, barH, 5);
   rect(x, barY, barW*0.1, barH);
 
+ let factor = 10 / distamt.toString().length;
+
   if (distamt > 0) {
     textSize(width / 35);
     fill(255);
     textAlign(RIGHT, CENTER);
-    text(distamt, x + barW - 8, distY);
+    text(distamt, x + barW - distamt.toString().length * factor, distY);
     textSize(width / 20);
   }
 }
