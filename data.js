@@ -258,7 +258,7 @@ for (let i = 0; i < 10; i++) {
   let barY = distY - barH / 2;
 
   rectMode(CORNER);
-  rect(x, barY, barW, barH);
+  rect(x, barY, barW, barH, 5);
 
   if (distamt > 0) {
     textSize(width / 35);
