@@ -1,5 +1,5 @@
 function screenInteract() {
-  if (gamestate == "startmenu" && !helpScreenShowing) {
+  if (gamestate == "startmenu" && !helpScreenShowing && !dataScreenShowing) {
     for (let b of startmenuButtons) {
       b.keyPressed();
     }
@@ -22,15 +22,15 @@ function screenInteract() {
     cButton.keyPressed();
   }
 
-  if (dataScreenShowing) {
-    rButton.keyPressed();
-  }
+  // if (dataScreenShowing) {
+  //   rButton.keyPressed();
+  // }
 
   if (hintScreenShowing) {
     hintButton.keyPressed();
   }
 
-  if (gamestate == "playing") {
+  if (gamestate == "playing" && !helpScreenShowing &&  !dataScreenShowing) {
     for (let k of letterKeys) {
       k.keyPressed();
     }

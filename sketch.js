@@ -1,4 +1,6 @@
-// document.addEventListener('touchstart', {});
+document.body.addEventListener("touchstart", function (_ev) {});
+document.body.addEventListener("touchmove", function (_ev) {});
+document.body.addEventListener("touchend", function (_ev) {});
 
 async function setup() {
   //CREATE CANVAS
@@ -6,7 +8,7 @@ async function setup() {
   if (windowWidth < gameWidth) {
     gameWidth = windowWidth;
   }
-  createCanvas(gameWidth, windowHeight);
+  createCanvas(gameWidth, windowHeight - 75);
 
   pixelDensity(window.devicePixelRatio);
 
@@ -62,21 +64,21 @@ async function setup() {
 
 function draw() {
   background(lightblueC);
+  
+//   if (dataScreenShowing) {
+//     dataScreen();
+//     return;
+//   }
 
-  if (dataScreenShowing) {
-    dataScreen();
-    return;
-  }
+//   if (helpScreenShowing) {
+//     helpScreen();
+//     return;
+//   }
 
-  if (helpScreenShowing) {
-    helpScreen();
-    return;
-  }
-
-  if (shareScreenShowing) {
-    shareScreen();
-    return;
-  }
+//   if (shareScreenShowing) {
+//     shareScreen();
+//     return;
+//   }
 
   if (hintScreenShowing && !hintScreenShown) {
     hintScreen();
@@ -105,7 +107,7 @@ function draw() {
       k.show();
     }
 
-   if (!hintChosen && blocks.length >= 15) {
+    if (!hintChosen && blocks.length >= 15) {
       setTimeout(() => {
         checkHint();
       }, 1000);
@@ -152,22 +154,32 @@ function draw() {
     }
   }
 
-  // //DELETE ALL THIS AFTER DEBUGGING IPHONE ISSUES
-  // if (touches.length > 0) {
-  //   let touchX = Math.round(touches[0].x);
-  //   let touchY = Math.round(touches[0].y);
-  //   let touch = touchX + " & " + touchY;
-  //   let x = width / 2 - buttonW / 2;
-  //   let y = height * 0.3;
-  //   let w = buttonW;
-  //   let h = buttonH;
+  if (dataScreenShowing) {
+    blueC.setAlpha(5);
+    fill(blueC);
+    rect(0, 0, width, height);
+    blueC.setAlpha(255);
+    dataScreen();
+    // return;
+  }
 
-  //   if (touchX > x && touchX < x + w && touchY > y && touchY < y + h) {
-  //     fill(255, 0, 0, 255);
-  //   }
-  //   text(touch, width / 2, height / 2);
-  // }
-  
+ if (helpScreenShowing) {
+    blueC.setAlpha(5);
+    fill(blueC);
+    rect(0, 0, width, height);
+    blueC.setAlpha(255);
+    helpScreen();
+    // return;
+  }
+
+ if (shareScreenShowing) {
+    blueC.setAlpha(5);
+    fill(blueC);
+    rect(0, 0, width, height);
+    blueC.setAlpha(255);
+    shareScreen();
+    // return;
+  }
 }
 
 async function keyPressed() {
