@@ -99,11 +99,16 @@ async function saveData() {
     if (totalScore == null) {
       totalScore = 0;
     }
+    
+   let totalScores = 0;
+    for(let i = 0; i < scoreDistribution.length; i++){
+      totalScores = scoreDistribution[i] * (i + 1);
+    }    
     totalScore += score;
     todaysScore = score;
 
     if (totalPlays != 0) {
-      averageScore = totalScore / totalPlays;
+      averageScore = totalScores / totalPlays;
       averageScore = Math.round(averageScore * 2) / 2;
     } else {
       averageScore = 0;
