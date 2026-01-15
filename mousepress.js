@@ -43,7 +43,7 @@ function screenInteract() {
   if ( targetType == infinitetxt && 
     gamestate == "won" ||
     gamestate == "lost" ||
-    (gamestate == "played" && playAgButton && !playAgButton.falling)
+    (gamestate == "played" && playAgButton && !playAgButton.falling  && !dataScreenShowing && !helpScreenShowing)
   ) {
     playAgButton.keyPressed();
   }
@@ -52,7 +52,7 @@ function screenInteract() {
    targetType == dailytxt && 
     gamestate == "won" ||
     gamestate == "lost" ||
-    (gamestate == "played" && sButton && !sButton.falling && !shareScreenShowing)
+    (gamestate == "played" && sButton && !sButton.falling && !shareScreenShowing  && !dataScreenShowing && !helpScreenShowing)
   ) {
     sButton.keyPressed();
   }
