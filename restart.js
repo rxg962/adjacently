@@ -349,6 +349,12 @@ async function restartMenu() {
     t.show();
     t.update();
   }
+  
+  if(shareScreenShowing){
+  rectMode(CORNER);
+  fill(backgroundC);
+  rect(0, dividingLineH, width, height);
+  }
 }
 
 class restartText {

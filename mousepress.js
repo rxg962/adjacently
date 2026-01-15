@@ -30,7 +30,7 @@ function screenInteract() {
     hintButton.keyPressed();
   }
 
-  if (gamestate == "playing" && !helpScreenShowing &&  !dataScreenShowing) {
+  if (gamestate == "playing" && !helpScreenShowing && !dataScreenShowing) {
     for (let k of letterKeys) {
       k.keyPressed();
     }
@@ -52,12 +52,12 @@ function screenInteract() {
    targetType == dailytxt && 
     gamestate == "won" ||
     gamestate == "lost" ||
-    (gamestate == "played" && sButton && !sButton.falling)
+    (gamestate == "played" && sButton && !sButton.falling && !shareScreenShowing)
   ) {
     sButton.keyPressed();
   }
 
-  if (gamestate != "startmenu") {
+  if (gamestate != "startmenu" && !helpScreenShowing && !dataScreenShowing && !shareScreenShowing) {
     hButtonTopBar.keyPressed();
     dButtonTopBar.keyPressed();
     hoButton.keyPressed();

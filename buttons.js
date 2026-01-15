@@ -90,6 +90,8 @@ class helpButton {
       mouseY > this.y - this.r &&
       mouseY < this.y + this.r
     ) {
+      
+      
       this.pressed = true;
 
       setTimeout(() => {

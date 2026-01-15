@@ -46,6 +46,7 @@ async function shareText() {
   } else if (todaysScore != 1) {
     line1 = "I just scored " + todaysScore + " points playing ADJACENTLY!";
   }
+  // let line1 = "I just played ADJACENTLY and scored " + todaysScore + "!";
 
   let fireworkEmojistoShow = [];
   for (i = 0; i < todaysScore; i++) {
@@ -82,6 +83,10 @@ async function shareText() {
 }
 
 function shareScreen() {
+  rectMode(CORNER);
+  fill(backgroundC);
+  rect(0, 0, width, height);
+
   rectMode(CENTER);
   fill(255);
   rect(shareScreenX, shareScreenY, shareScreenW, shareScreenH, 20);
@@ -95,8 +100,6 @@ function shareScreen() {
   text("SHARE", shareScreenX, top + cornerbuffer);
 
   cButton.show();
-
-  // shareText();
 
   let buffer = width / 20;
   let exButtonX = shareScreenX + shareScreenW / 2 - buffer;

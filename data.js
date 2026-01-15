@@ -221,7 +221,7 @@ function dataScreen() {
   text(txtPD, width / 2, helpTop + 3.75 * h);
 
   
-   let tentxt = "10";
+  let tentxt = "10";
   let wdist = textWidth(tentxt)/10;
   
   // textSize(width / 20);
@@ -262,8 +262,9 @@ for (let i = 0; i < 10; i++) {
   if(barW != 0){
     rect(x, barY, 6, barH);
   }
-
- let factor = 10 / distamt.toString().length;
+  
+  
+  let factor = 10 / distamt.toString().length;
 
   if (distamt > 0) {
     textSize(width / 35);

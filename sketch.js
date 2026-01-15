@@ -8,7 +8,7 @@ async function setup() {
   if (windowWidth < gameWidth) {
     gameWidth = windowWidth;
   }
-  createCanvas(gameWidth, windowHeight);
+  createCanvas(gameWidth, windowHeight - 75);
 
   pixelDensity(window.devicePixelRatio);
 
@@ -64,21 +64,6 @@ async function setup() {
 
 function draw() {
   background(lightblueC);
-  
-//   if (dataScreenShowing) {
-//     dataScreen();
-//     return;
-//   }
-
-//   if (helpScreenShowing) {
-//     helpScreen();
-//     return;
-//   }
-
-//   if (shareScreenShowing) {
-//     shareScreen();
-//     return;
-//   }
 
   if (hintScreenShowing && !hintScreenShown) {
     hintScreen();
@@ -114,7 +99,7 @@ function draw() {
     }
   }
 
-  if (gamestate != "startmenu" && gamestate != "playing") {
+  if (gamestate != "startmenu" && gamestate != "playing" && !helpScreenShowing && !dataScreenShowing) {
     restartMenu();
   }
 
@@ -155,28 +140,16 @@ function draw() {
   }
 
   if (dataScreenShowing) {
-    blueC.setAlpha(5);
-    fill(blueC);
-    rect(0, 0, width, height);
-    blueC.setAlpha(255);
     dataScreen();
     // return;
   }
 
  if (helpScreenShowing) {
-    blueC.setAlpha(5);
-    fill(blueC);
-    rect(0, 0, width, height);
-    blueC.setAlpha(255);
     helpScreen();
     // return;
   }
 
  if (shareScreenShowing) {
-    blueC.setAlpha(5);
-    fill(blueC);
-    rect(0, 0, width, height);
-    blueC.setAlpha(255);
     shareScreen();
     // return;
   }
