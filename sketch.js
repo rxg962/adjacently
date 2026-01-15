@@ -3,12 +3,11 @@ document.body.addEventListener("touchmove", function (_ev) {});
 document.body.addEventListener("touchend", function (_ev) {});
 
 async function setup() {
-  //CREATE CANVAS
   gameWidth = 500;
   if (windowWidth < gameWidth) {
     gameWidth = windowWidth;
   }
-  createCanvas(gameWidth, windowHeight);
+  createCanvas(gameWidth, windowHeight - 75);
 
   pixelDensity(window.devicePixelRatio);
 
@@ -65,10 +64,6 @@ async function setup() {
 function draw() {
   background(lightblueC);
 
-  if (hintScreenShowing && !hintScreenShown) {
-    hintScreen();
-  }
-
   for (let b of blocks) {
     b.checkNeighbours();
     b.show();
@@ -97,11 +92,25 @@ function draw() {
         checkHint();
       }, 1000);
     }
+
+    if (hintScreenShowing && !hintScreenShown) {
+      hintScreen();
+    }
   }
 
-  if (gamestate != "startmenu" && gamestate != "playing" && !helpScreenShowing && !dataScreenShowing) {
+  if (gamestate != "startmenu" && gamestate != "playing") {
+    restartMenuShowing = true;
+  }
+
+  if (restartMenuShowing) {
     restartMenu();
   }
+
+  // if (gamestate == "won" || gamestate == "lost" || gamestate == "played") {
+  //   if (!helpScreenShowing) {
+  //     restartMenu();
+  //   }
+  // }
 
   if (gamestate == "won") {
     shootFireworks();
@@ -144,15 +153,21 @@ function draw() {
     // return;
   }
 
- if (helpScreenShowing) {
+  if (helpScreenShowing) {
     helpScreen();
     // return;
   }
 
- if (shareScreenShowing) {
+  if (shareScreenShowing) {
     shareScreen();
     // return;
   }
+
+  console.log("state: " + gamestate);
+  console.log("help: " + helpScreenShowing);
+  console.log("data: " + dataScreenShowing);
+  console.log("share: " + shareScreenShowing);
+   console.log("restart: " + restartMenuShowing);
 }
 
 async function keyPressed() {

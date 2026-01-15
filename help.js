@@ -24,6 +24,8 @@ function setupHelpScreen() {
 
 function helpScreen() {
  
+    restartMenuShowing = false;
+
   rectMode(CORNER);
   fill(backgroundC);
   rect(0, 0, width, height);

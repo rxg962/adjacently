@@ -90,8 +90,6 @@ class helpButton {
       mouseY > this.y - this.r &&
       mouseY < this.y + this.r
     ) {
-      
-      
       this.pressed = true;
 
       setTimeout(() => {
@@ -391,19 +389,18 @@ class startMenuButton {
 
         setTimeout(async () => {
           targetType = dailytxt;
-
-          await getTarget();
           gamestate = "playing";
+          await getTarget();
           await getTodaysBoard();
         }, 100);
       }
 
       if (this.txt == "Infinite") {
         this.pressed = true;
-        setTimeout(() => {
+        setTimeout(async () => {
           targetType = infinitetxt;
-          getTarget();
           gamestate = "playing";
+          await getTarget();
         }, 100);
       }
     }

@@ -40,24 +40,32 @@ function screenInteract() {
     }
   }
 
-  if ( targetType == infinitetxt && 
-    gamestate == "won" ||
+  if (
+    (targetType == infinitetxt && gamestate == "won") ||
     gamestate == "lost" ||
-    gamestate == "played" && (playAgButton && !playAgButton.falling && !dataScreenShowing && !helpScreenShowing)
+    (gamestate == "played" && playAgButton && !playAgButton.falling)
   ) {
-    playAgButton.keyPressed();
+    if (!shareScreenShowing && !dataScreenShowing && !helpScreenShowing) {
+      playAgButton.keyPressed();
+    }
   }
 
   if (
-   targetType == dailytxt && 
-    gamestate == "won" ||
+    (targetType == dailytxt && gamestate == "won") ||
     gamestate == "lost" ||
-    gamestate == "played" && (sButton && !sButton.falling && !shareScreenShowing && !dataScreenShowing && !helpScreenShowing)
+    (gamestate == "played" && sButton && !sButton.falling)
   ) {
-    sButton.keyPressed();
+    if (!shareScreenShowing && !dataScreenShowing && !helpScreenShowing) {
+      sButton.keyPressed();
+    }
   }
 
-  if (gamestate != "startmenu" && !helpScreenShowing && !dataScreenShowing && !shareScreenShowing) {
+  if (
+    gamestate != "startmenu" &&
+    !helpScreenShowing &&
+    !dataScreenShowing &&
+    !shareScreenShowing
+  ) {
     hButtonTopBar.keyPressed();
     dButtonTopBar.keyPressed();
     hoButton.keyPressed();
@@ -69,14 +77,14 @@ function mousePressed() {
 }
 
 function touchStarted() {
-if (touches.length > 0) {
+  if (touches.length > 0) {
     screenInteract(touches[0].x, touches[0].y);
   }
   return false;
 }
 
 function touchEnded() {
-if (touches.length > 0) {
+  if (touches.length > 0) {
     screenInteract(touches[0].x, touches[0].y);
   }
   return false;

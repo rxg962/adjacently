@@ -157,6 +157,8 @@ async function saveData() {
 }
 
 function dataScreen() {
+  restartMenuShowing = false;
+
   rectMode(CORNER);
   fill(backgroundC);
   rect(0, 0, width, height);
@@ -220,10 +222,9 @@ function dataScreen() {
   let wPD = textWidth(txtPD) / 2;
   text(txtPD, width / 2, helpTop + 3.75 * h);
 
-  
   let tentxt = "10";
-  let wdist = textWidth(tentxt)/10;
-  
+  let wdist = textWidth(tentxt) / 10;
+
   // textSize(width / 20);
   // let hsmall = (textAscent() + textDescent())/2;
 
@@ -236,61 +237,57 @@ function dataScreen() {
   }
 
   textSize(width / 20);
-let textH = textAscent() + textDescent();
+  let textH = textAscent() + textDescent();
 
-for (let i = 0; i < 10; i++) {
-  let index = i + 1;
-  let distamt = scoreDistribution[i] || 0;
+  for (let i = 0; i < 10; i++) {
+    let index = i + 1;
+    let distamt = scoreDistribution[i] || 0;
 
-  let distY = helpTop + (4.5 + 0.5 * (9 - i)) * h;
+    let distY = helpTop + (4.5 + 0.5 * (9 - i)) * h;
 
-  fill(todaysScore !== "-" && todaysScore === index ? pinkC : blueC);
-  textAlign(CENTER, CENTER);
-  text(index, helpScreenW * 0.25 - w1, distY);
+    fill(todaysScore !== "-" && todaysScore === index ? pinkC : blueC);
+    textAlign(CENTER, CENTER);
+    text(index, helpScreenW * 0.25 - w1, distY);
 
-  let barW =
-    maxscore > 0
-      ? map(distamt, 0, maxscore, 0, helpScreenW * 0.7)
-      : 0;
+    let barW =
+      maxscore > 0 ? map(distamt, 0, maxscore, 0, helpScreenW * 0.7) : 0;
 
-  let barH = textH * 0.5;
-  let x = helpScreenW * 0.25 + wdist;
-  let barY = distY - barH / 2;
+    let barH = textH * 0.5;
+    let x = helpScreenW * 0.25 + wdist;
+    let barY = distY - barH / 2;
 
-  rectMode(CORNER);
-  rect(x, barY, barW, barH, 5);
-  if(barW != 0){
-    rect(x, barY, 6, barH);
+    rectMode(CORNER);
+    rect(x, barY, barW, barH, 5);
+    if (barW != 0) {
+      rect(x, barY, 6, barH);
+    }
+
+    let factor = 10 / distamt.toString().length;
+
+    if (distamt > 0) {
+      textSize(width / 35);
+      fill(255);
+      textAlign(RIGHT, CENTER);
+      text(distamt, x + barW - distamt.toString().length * factor, distY);
+      textSize(width / 20);
+    }
   }
-  
-  
-  let factor = 10 / distamt.toString().length;
 
-  if (distamt > 0) {
-    textSize(width / 35);
-    fill(255);
-    textAlign(RIGHT, CENTER);
-    text(distamt, x + barW - distamt.toString().length * factor, distY);
-    textSize(width / 20);
-  }
-}
-
-    // let c1 = color(255);
-    // if (todaysScore !== "-" && todaysScore === index) {
-    //   c2 = pinkC;
-    // } else {
-    //   c2 = blueC;
-    // }
-    // let d = helpScreenW * 0.75;
-    // let x = helpScreenW * 0.25 - wdist + offset;
-    // let y = distY - hsmall / 4;
-    // for (let i = 0; i < barW; i++) {
-    //   let index = map(i, 0, barW, 0, 1);
-    //   let c = lerpColor(c1, c2, index);
-    //   fill(c);
-    //   rect(x + i, y, 1, hsmall / 2);
-    // }
-
+  // let c1 = color(255);
+  // if (todaysScore !== "-" && todaysScore === index) {
+  //   c2 = pinkC;
+  // } else {
+  //   c2 = blueC;
+  // }
+  // let d = helpScreenW * 0.75;
+  // let x = helpScreenW * 0.25 - wdist + offset;
+  // let y = distY - hsmall / 4;
+  // for (let i = 0; i < barW; i++) {
+  //   let index = map(i, 0, barW, 0, 1);
+  //   let c = lerpColor(c1, c2, index);
+  //   fill(c);
+  //   rect(x + i, y, 1, hsmall / 2);
+  // }
 
   let buffer = width / 20;
   let exButtonX = helpScreenX + helpScreenW / 2 - buffer;

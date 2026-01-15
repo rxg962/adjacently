@@ -71,6 +71,7 @@ let titleTextBlocksStartMenu = [];
 let titleTextBlocksTopBar = [];
 let title = ["A", "D", "J", "A", "C", "E", "N", "T", "L", "Y"];
 let hintScreenShowing = false;
+let restartTxtRect;
 
 function restart() {
   blocks = [];
@@ -101,7 +102,7 @@ function restart() {
   restartTextRect.y = -height * 0.3;
   restartTextRect.acc = 0.2;
   restartTextRect.speed = 8;
-  restartMenuShowing = true;
+  restartMenuShowing = false;
   failFireworks = [];
   bombs = [];
   bombDropped = false;
@@ -113,6 +114,10 @@ function restart() {
   showKeyboardHint = false;
   hint = undefined;
   doneBlocks = [];
+  hintScreenShown = false;
+  hintScreenShowing = false;
+  shareScreenShowing = false;
+
 
   for (let k of letterKeys) {
     k.state = "default";
@@ -334,20 +339,27 @@ async function restartMenu() {
     }
   }
 
-  if (targetType == dailytxt) {
+  if(restartMenuShowing){
+    if (targetType == dailytxt) {
     sButton.show();
     sButton.update();
   } else if (targetType == infinitetxt) {
     playAgButton.show();
     playAgButton.update();
-  }
+  } 
+  
+ 
 
-  restartTxtRect.show();
-  restartTxtRect.update();
+  if(restartTextsCreated){
+   restartTxtRect.show();
+  restartTxtRect.update(); 
+  }
+  
 
   for (let t of restartTexts) {
     t.show();
     t.update();
+  }
   }
   
   if(shareScreenShowing){
