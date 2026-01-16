@@ -539,12 +539,14 @@ function statsTextBlock() {
 
 function recalculateAverage() {
   let totalScores = 0;
+  let totalplays = 0;
   for (let i = 0; i < scoreDistribution.length; i++) {
     totalScores += scoreDistribution[i] * (i + 1);
+    totalplays += scoreDistribution[i];
   }
 
   if (totalPlays != 0) {
-    averageScore = totalScores / totalPlays;
+    averageScore = totalScores / totalplays;
     averageScore = Math.round(averageScore * 2) / 2;
   } else {
     averageScore = 0;
