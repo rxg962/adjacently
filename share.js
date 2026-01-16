@@ -16,6 +16,8 @@ let fireworkEmojis = [
   "🎆",
   "🎆",
 ];
+let sharetitletxt = ["S", "H", "A", "R", "E"];
+let shareTextBlocks = [];
 
 function setupShareScreen() {
   createShareScreenBoundaries();
@@ -97,7 +99,12 @@ function shareScreen() {
   let left = shareScreenX - shareScreenW / 2;
   let top = shareScreenY - shareScreenH / 2;
   fill(blueC);
-  text("SHARE", shareScreenX, top + cornerbuffer);
+  // text("SHARE", shareScreenX, top + cornerbuffer);
+
+  for (let b of shareTextBlocks) {
+    b.show();
+    b.update();
+  }
 
   cButton.show();
 
@@ -117,4 +124,58 @@ function copyShareText() {
   temp.elt.select(); // select the text
   document.execCommand("copy"); // copy to clipboard
   temp.remove(); // remove temporary textarea
+}
+
+class shareBlock {
+  constructor(colNo, letter) {
+    let cols = 12;
+    this.w = floor(width / cols);
+
+    let cornerbuffer = width / 12;
+    let left = shareScreenX - shareScreenW / 2;
+    let top = shareScreenY - shareScreenH / 2;
+    
+    let totalW = this.w * sharetitletxt.length;
+
+    this.x = width/2 - totalW/2 + floor(colNo * this.w);
+    this.h = this.w;
+    this.random = random(-3, 3);
+    this.y = top + cornerbuffer + this.random;
+    this.startY = top + cornerbuffer;
+    this.letter = letter;
+    this.rand = random(1);
+  }
+
+  show() {
+    noStroke();
+    let colour;
+    if (this.rand < 0.15) {
+      colour = pinkC;
+    } else if (this.rand < 0.25) {
+      colour = greyC;
+    } else {
+      colour = blueC;
+    }
+
+    fill(colour);
+    rectMode(CORNER);
+    rect(this.x, this.y, this.w, this.h, 5);
+    noStroke();
+    fill(255);
+    textSize(width/20);
+    textAlign(CENTER, CENTER);
+    text(this.letter, this.x + this.w / 2, this.y + this.h / 2);
+  }
+
+  update() {
+    let offset = map(sin(this.random), -1, 1, -3, 3);
+    this.y = this.startY + offset;
+    this.random += random(0.03, 0.07);
+  }
+}
+
+function shareTextBlock() {
+  for (let i = 0; i < sharetitletxt.length; i++) {
+    shareTextBlocks.push(new shareBlock(i, sharetitletxt[i]));
+  }
 }

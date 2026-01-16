@@ -7,7 +7,7 @@ async function setup() {
   if (windowWidth < gameWidth) {
     gameWidth = windowWidth;
   }
-  createCanvas(gameWidth, windowHeight);
+  createCanvas(gameWidth, windowHeight - 75);
 
   pixelDensity(window.devicePixelRatio);
 
@@ -59,6 +59,9 @@ async function setup() {
   cButton = new copyButton();
 
   hoButton = new homeButton();
+  
+  shareTextBlock();
+  statsTextBlock();
 }
 
 function draw() {
@@ -163,11 +166,11 @@ function draw() {
     // return;
   }
 
-  console.log("state: " + gamestate);
-  console.log("help: " + helpScreenShowing);
-  console.log("data: " + dataScreenShowing);
-  console.log("share: " + shareScreenShowing);
-   console.log("restart: " + restartMenuShowing);
+  // console.log("state: " + gamestate);
+  // console.log("help: " + helpScreenShowing);
+  // console.log("data: " + dataScreenShowing);
+  // console.log("share: " + shareScreenShowing);
+  //  console.log("restart: " + restartMenuShowing);
 }
 
 async function keyPressed() {

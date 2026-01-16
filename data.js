@@ -26,6 +26,9 @@ let todaysBoard = [];
 let doneBlocks = [];
 let maxscore;
 
+let statstitletxt = ["S", "T", "A", "T", "S"];
+let statsTextBlocks = [];
+
 async function getData() {
   data = await getItem("data");
 
@@ -200,8 +203,13 @@ function dataScreen() {
   let cornerbuffer = width / 10;
   let left = helpScreenX - helpScreenW / 2;
   let top = helpScreenY - helpScreenH / 2;
-  fill(blueC);
-  text("STATS", helpScreenX, top + cornerbuffer);
+  // fill(blueC);
+  // text("STATS", helpScreenX, top + cornerbuffer);
+  
+   for (let b of statsTextBlocks) {
+    b.show();
+    b.update();
+  }
 
   // textSize(width/12);
   // let h = textAscent() + textDescent();
@@ -493,5 +501,59 @@ class DoneBlock {
     } else {
       this.y = this.finishY;
     }
+  }
+}
+
+class statsBlock {
+  constructor(colNo, letter) {
+    let cols = 10;
+    this.w = floor(width / cols);
+
+    let cornerbuffer = width / 20;
+    let left = helpScreenX - helpScreenW / 2;
+    let top = helpScreenY - helpScreenH / 2;
+
+    let totalW = this.w * statstitletxt.length;
+
+    this.x = width / 2 - totalW / 2 + floor(colNo * this.w);
+    this.h = this.w;
+    this.random = random(-3, 3);
+    this.y = top + cornerbuffer + this.random;
+    this.startY = top + cornerbuffer;
+    this.letter = letter;
+    this.rand = random(1);
+  }
+
+  show() {
+    noStroke();
+    let colour;
+    if (this.rand < 0.15) {
+      colour = pinkC;
+    } else if (this.rand < 0.25) {
+      colour = greyC;
+    } else {
+      colour = blueC;
+    }
+
+    fill(colour);
+    rectMode(CORNER);
+    rect(this.x, this.y, this.w, this.h, 5);
+    noStroke();
+    fill(255);
+    textSize(width / 20);
+    textAlign(CENTER, CENTER);
+    text(this.letter, this.x + this.w / 2, this.y + this.h / 2);
+  }
+
+  update() {
+    let offset = map(sin(this.random), -1, 1, -3, 3);
+    this.y = this.startY + offset;
+    this.random += random(0.03, 0.07);
+  }
+}
+
+function statsTextBlock() {
+  for (let i = 0; i < statstitletxt.length; i++) {
+    statsTextBlocks.push(new statsBlock(i, statstitletxt[i]));
   }
 }
