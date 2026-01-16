@@ -74,6 +74,20 @@ async function getData() {
   } else if (LP == T && todaysScore == 0) {
     streak = 0;
   }
+
+  let totalScores = 0;
+  for (let i = 0; i < scoreDistribution.length; i++) {
+    totalScores += scoreDistribution[i] * (i + 1);
+  }
+
+  if (totalPlays != 0) {
+    averageScore = totalScores / totalPlays;
+    averageScore = Math.round(averageScore * 2) / 2;
+  } else {
+    averageScore = 0;
+  }
+
+  console.log(totalScores);
 }
 
 async function saveData() {
@@ -96,23 +110,20 @@ async function saveData() {
     }
     totalPlays++;
 
+    //REMOVE TOTALSCORE IF TOTALSCORES WORKS AND RENAME TO TOTALSCORE
     if (totalScore == null) {
       totalScore = 0;
     }
-    
-   let totalScores = 0;
-    for(let i = 0; i < scoreDistribution.length; i++){
-      totalScores = scoreDistribution[i] * (i + 1);
-    }    
-    totalScore += score;
     todaysScore = score;
 
-    if (totalPlays != 0) {
-      averageScore = totalScores / totalPlays;
-      averageScore = Math.round(averageScore * 2) / 2;
-    } else {
-      averageScore = 0;
-    }
+    // totalScore += score;
+
+    // if (totalPlays != 0) {
+    //   averageScore = totalScore / totalPlays;
+    //   averageScore = Math.round(averageScore * 2) / 2;
+    // } else {
+    //   averageScore = 0;
+    // }
 
     if (LP == Y) {
       streak++;
@@ -143,6 +154,18 @@ async function saveData() {
   if (todaysScore > 0) {
     scoreDistribution[todaysScore - 1]++;
   }
+
+  //   let totalScores = 0;
+  //     for(let i = 0; i < scoreDistribution.length; i++){
+  //       totalScores += scoreDistribution[i] * (i + 1);
+  //     }
+
+  //   if (totalPlays != 0) {
+  //       averageScore = totalScores / totalPlays;
+  //       averageScore = Math.round(averageScore * 2) / 2;
+  //     } else {
+  //       averageScore = 0;
+  //     }
 
   await saveTodaysBoard();
 
