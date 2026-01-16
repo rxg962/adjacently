@@ -131,7 +131,7 @@ class shareBlock {
     let cols = 12;
     this.w = floor(width / cols);
 
-    let cornerbuffer = width / 12;
+    let cornerbuffer = width / 14;
     let left = shareScreenX - shareScreenW / 2;
     let top = shareScreenY - shareScreenH / 2;
     
