@@ -77,20 +77,9 @@ async function getData() {
   } else if (LP == T && todaysScore == 0) {
     streak = 0;
   }
+  
+  recalculateAverage();
 
-  let totalScores = 0;
-  for (let i = 0; i < scoreDistribution.length; i++) {
-    totalScores += scoreDistribution[i] * (i + 1);
-  }
-
-  if (totalPlays != 0) {
-    averageScore = totalScores / totalPlays;
-    averageScore = Math.round(averageScore * 2) / 2;
-  } else {
-    averageScore = 0;
-  }
-
-  console.log(totalScores);
 }
 
 async function saveData() {
@@ -157,18 +146,8 @@ async function saveData() {
   if (todaysScore > 0) {
     scoreDistribution[todaysScore - 1]++;
   }
-
-  //   let totalScores = 0;
-  //     for(let i = 0; i < scoreDistribution.length; i++){
-  //       totalScores += scoreDistribution[i] * (i + 1);
-  //     }
-
-  //   if (totalPlays != 0) {
-  //       averageScore = totalScores / totalPlays;
-  //       averageScore = Math.round(averageScore * 2) / 2;
-  //     } else {
-  //       averageScore = 0;
-  //     }
+  
+  recalculateAverage();
 
   await saveTodaysBoard();
 
@@ -205,8 +184,8 @@ function dataScreen() {
   let top = helpScreenY - helpScreenH / 2;
   // fill(blueC);
   // text("STATS", helpScreenX, top + cornerbuffer);
-  
-   for (let b of statsTextBlocks) {
+
+  for (let b of statsTextBlocks) {
     b.show();
     b.update();
   }
@@ -555,5 +534,19 @@ class statsBlock {
 function statsTextBlock() {
   for (let i = 0; i < statstitletxt.length; i++) {
     statsTextBlocks.push(new statsBlock(i, statstitletxt[i]));
+  }
+}
+
+function recalculateAverage() {
+  let totalScores = 0;
+  for (let i = 0; i < scoreDistribution.length; i++) {
+    totalScores += scoreDistribution[i] * (i + 1);
+  }
+
+  if (totalPlays != 0) {
+    averageScore = totalScores / totalPlays;
+    averageScore = Math.round(averageScore * 2) / 2;
+  } else {
+    averageScore = 0;
   }
 }
