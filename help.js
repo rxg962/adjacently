@@ -150,7 +150,7 @@ function helpAdjacentText() {
   let txtTopBuffer = 0.75;
   textH = textAscent() + textDescent();
   text(
-    "Green connection: ADJACENT in target",
+    "Green connection: ADJACENT in target in either order",
     width / 2,
     helpTop + (adjacenttxtY / heightDivider) * helpScreenH
   );
