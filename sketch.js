@@ -2,12 +2,14 @@ document.body.addEventListener("touchstart", function (_ev) {});
 document.body.addEventListener("touchmove", function (_ev) {});
 document.body.addEventListener("touchend", function (_ev) {});
 
+
 async function setup() {
   gameWidth = 500;
   if (windowWidth < gameWidth) {
     gameWidth = windowWidth;
   }
-  createCanvas(gameWidth, windowHeight);
+  let c = createCanvas(gameWidth, windowHeight - 75);
+  c.elt.style.touchAction = 'none';
 
   pixelDensity(window.devicePixelRatio);
 
@@ -171,6 +173,10 @@ function draw() {
   // console.log("data: " + dataScreenShowing);
   // console.log("share: " + shareScreenShowing);
   //  console.log("restart: " + restartMenuShowing);
+
+
+  // drawDebugOverlay();
+  
 }
 
 async function keyPressed() {
