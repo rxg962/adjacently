@@ -280,6 +280,8 @@ class Block {
   isNotAllowed(other) {
     let index = this.index;
 
+//THIS CHECKS IF ANY BLOCKS ARE ADJACENT TO MATCHED LETTERS BUT ARE NOT MATCHED THEMSELVES
+    
     if (blocks[index + 1]) {
       if (
         blocks[index].matched == false &&
@@ -308,6 +310,54 @@ class Block {
         this.incorrectLetter = true;
       }
     }
+
+//BELOW CHECKS FOR ANY BLOCKS ADJACENT TO A LETTER THAT HAS BEEN PREVIOUSLY FOUND TO BE CORRECT BUT THAT IS NOT ADJACENT TO ANOTHER CORRECT LETTER AT THE MOMENT
+
+      if (blocks[index + 1]) {
+      if (
+        blocks[index].matched == false && 
+      !correctLetters.includes(blocks[index].letter) &&
+       correctLetters.includes(blocks[index + 1].letter) &&
+        index % 5 != 4
+      ) {
+        this.incorrectLetter = true;
+        }
+      }
+  
+    if (blocks[index - 1]) {
+      if (
+         blocks[index].matched == false && 
+        !correctLetters.includes(blocks[index].letter)  &&
+        correctLetters.includes(blocks[index - 1].letter) &&
+        index % 5 != 0
+      ) {
+        this.incorrectLetter = true;
+        }
+      }
+      
+    if (blocks[index + 5]) {
+      if ( blocks[index].matched == false && 
+        !correctLetters.includes(blocks[index].letter)   &&
+          correctLetters.includes(blocks[index + 5].letter)) 
+        {
+        this.incorrectLetter = true;
+        }
+    }
+      
+    if (blocks[index - 5]) {
+      if ( blocks[index].matched == false && 
+        !correctLetters.includes(blocks[index].letter)   &&
+          correctLetters.includes(blocks[index -5].letter)) {
+        this.incorrectLetter = true;
+      }
+    }
+
+
+    //IF IT HAS EVER BEEN INCORRECT BEFORE
+    if(incorrectLetters.includes(blocks[index].letter))
+    {
+      this.incorrectLetter = true
+    };
 
     return this.incorrectLetter;
   }
