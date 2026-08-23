@@ -8,7 +8,8 @@ async function setup() {
   if (windowWidth < gameWidth) {
     gameWidth = windowWidth;
   }
-  let c = createCanvas(gameWidth, windowHeight - 75);
+  //let c = createCanvas(gameWidth, windowHeight - 75);
+  let c = createCanvas(gameWidth, windowHeight);
   c.elt.style.touchAction = 'none';
 
   pixelDensity(window.devicePixelRatio);
