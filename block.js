@@ -76,11 +76,12 @@ class Block {
       this.txtcolour = color(255);
     } else if (
       target &&
-      target.includes(this.letter) &&
-      (this.LMatch > -1 ||
-        this.UMatch > -1 ||
-        this.RMatch > -1 ||
-        this.DMatch > -1)
+      correctLetters.includes(this.letter)
+      // target.includes(this.letter) &&
+      // (this.LMatch > -1 ||
+      //   this.UMatch > -1 ||
+      //   this.RMatch > -1 ||
+      //   this.DMatch > -1)
     ) {
       this.txtcolour = pinkC;
     } else {
