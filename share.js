@@ -1,4 +1,3 @@
-
 // let sButton;
 // let shareScreenX, shareScreenY, shareScreenW, shareScreenH, shareLeft, shareTop;
 // let shareScreenShowing = false;
@@ -307,18 +306,17 @@ async function copyShareText() {
     .replace(/<br\s*[\/]?>/gi, "\n")
     .replace(/<[^>]+>/g, ""); // strip any remaining HTML tags
 
-  // 1. Modern Clipboard API (Works on iOS Safari 13.4+ & Android Chrome/Firefox)
+  // 1. Modern Clipboard API (iOS Safari 13.4+ & Android)
   if (navigator.clipboard && navigator.clipboard.writeText) {
     try {
       await navigator.clipboard.writeText(plainText);
-      alert("Copied to clipboard!");
       return;
     } catch (err) {
       console.warn("Clipboard API failed, falling back...", err);
     }
   }
 
-  // 2. Mobile Fallback (Works on older iOS Safari & Android browsers)
+  // 2. Mobile Fallback (Older iOS & Android)
   let textArea = document.createElement("textarea");
   textArea.value = plainText;
 
@@ -340,14 +338,9 @@ async function copyShareText() {
   textArea.setSelectionRange(0, textArea.value.length);
 
   try {
-    let successful = document.execCommand("copy");
-    if (successful) {
-      alert("Copied to clipboard!");
-    } else {
-      alert("Failed to copy automatically.");
-    }
+    document.execCommand("copy");
   } catch (err) {
-    alert("Copy not supported on this browser.");
+    console.warn("Copy command failed", err);
   }
 
   document.body.removeChild(textArea);
