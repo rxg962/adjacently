@@ -20,7 +20,8 @@ async function setup() {
 
   getColours();
 
-  gameHeight = (2 * height) / 3;
+   //gameHeight = (2 * height) / 3;
+  gameHeight = height;
   topBarH = height / 15;
   playAreaTop = topBarH + (5 * height) / 162;
   playAreaBottom = gameHeight;
