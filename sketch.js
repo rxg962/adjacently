@@ -177,7 +177,7 @@ function draw() {
   //  console.log("restart: " + restartMenuShowing);
 
 
-  // drawDebugOverlay();
+  drawDebugOverlay();
   
 }
 
@@ -211,4 +211,40 @@ async function keyPressed() {
   if (key == "d") {
     await getTodaysBoard();
   }
+}
+
+function drawDebugOverlay() {
+  push(); // Isolate styling so it doesn't affect your game graphics
+  
+  // Measure exact visible viewport height on mobile
+  let visualH = window.visualViewport ? Math.round(window.visualViewport.height) : window.innerHeight;
+  let visualW = window.visualViewport ? Math.round(window.visualViewport.width) : window.innerWidth;
+
+  let boxW = 220;
+  let boxH = 110;
+  let padding = 10;
+
+  // Background Box
+  fill(0, 0, 0, 200); // Semi-transparent black
+  stroke(255, 255, 0); // Bright yellow border
+  strokeWeight(2);
+  rect(10, 10, boxW, boxH, 8);
+
+  // Text Styling
+  noStroke();
+  fill(255);
+  textAlign(LEFT, TOP);
+  textSize(12);
+  textFont("monospace");
+
+  // Output Metrics
+  text(`Canvas Height:   ${Math.round(height)}px`, 10 + padding, 10 + padding);
+  text(`Window Height:   ${Math.round(windowHeight)}px`, 10 + padding, 28 + padding);
+  text(`Game Height:     ${Math.round(gameHeight)}px`, 10 + padding, 46 + padding);
+  
+  // Highlight the true visible viewport space
+  fill(0, 255, 150); // Mint green
+  text(`Visual Viewport: ${visualH}px (w: ${visualW})`, 10 + padding, 64 + padding);
+
+  pop(); // Restore game drawing settings
 }
