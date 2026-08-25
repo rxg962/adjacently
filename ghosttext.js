@@ -39,7 +39,7 @@
 function ghosttext() {
   for (let i = 0; i < inputArr.length; i++) {
     textSize(min(w, h) / 2);
-    fill(255);
+    fill(77);
     textAlign(CENTER, CENTER);
     let x = i * w + w / 2;
 
