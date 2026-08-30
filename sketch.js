@@ -8,7 +8,6 @@ async function setup() {
   if (windowWidth < gameWidth) {
     gameWidth = windowWidth;
   }
-  //let c = createCanvas(gameWidth, windowHeight - 75);
   let c = createCanvas(gameWidth, windowHeight);
   c.elt.style.touchAction = 'none';
 
@@ -103,7 +102,19 @@ function draw() {
     if (hintScreenShowing && !hintScreenShown) {
       hintScreen();
     }
+
+     if (!hint2Chosen && blocks.length >= 25) {
+      setTimeout(() => {
+        checkHint2();
+      }, 1000);
+    }
+
+    if (hint2ScreenShowing && !hint2ScreenShown) {
+      hint2Screen();
+    }
   }
+
+  
 
   if (gamestate != "startmenu" && gamestate != "playing") {
     restartMenuShowing = true;
@@ -113,13 +124,7 @@ function draw() {
     restartMenu();
   }
 
-  // if (gamestate == "won" || gamestate == "lost" || gamestate == "played") {
-  //   if (!helpScreenShowing) {
-  //     restartMenu();
-  //   }
-  // }
-
-  if (gamestate == "won") {
+   if (gamestate == "won") {
     shootFireworks();
   }
 
@@ -169,15 +174,6 @@ function draw() {
     shareScreen();
     // return;
   }
-
-  // console.log("state: " + gamestate);
-  // console.log("help: " + helpScreenShowing);
-  // console.log("data: " + dataScreenShowing);
-  // console.log("share: " + shareScreenShowing);
-  //  console.log("restart: " + restartMenuShowing);
-
-
-  //drawDebugOverlay();
   
 }
 
@@ -213,38 +209,4 @@ async function keyPressed() {
   }
 }
 
-//function drawDebugOverlay() {
- // push(); // Isolate styling so it doesn't affect your game graphics
-  
-  // Measure exact visible viewport height on mobile
- // let visualH = window.visualViewport ? Math.round(window.visualViewport.height) : window.innerHeight;
-  //let visualW = window.visualViewport ? Math.round(window.visualViewport.width) : window.innerWidth;
 
- // let boxW = 220;
- // let boxH = 110;
- // let padding = 10;
-
-  // Background Box
- // fill(0, 0, 0, 200); // Semi-transparent black
- // stroke(255, 255, 0); // Bright yellow border
- // strokeWeight(2);
- // rect(10, 10, boxW, boxH, 8);
-
-  // Text Styling
-  //noStroke();
-  //fill(255);
-  //textAlign(LEFT, TOP);
-  //textSize(12);
- // textFont("monospace");
-
-  // Output Metrics
- // text(`Canvas Height:   ${Math.round(height)}px`, 10 + padding, 10 + padding);
- // text(`Window Height:   ${Math.round(windowHeight)}px`, 10 + padding, 28 + padding);
-  //text(`Game Height:     ${Math.round(gameHeight)}px`, 10 + padding, 46 + padding);
-  
-  // Highlight the true visible viewport space
-  //fill(0, 255, 150); // Mint green
- // text(`Visual Viewport: ${visualH}px (w: ${visualW})`, 10 + padding, 64 + padding);
-
-  //pop(); // Restore game drawing settings
-//}

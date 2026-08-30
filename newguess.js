@@ -41,6 +41,7 @@ function updateKeyColour() {
     if (b.matched && !correctLetters.includes(b.letter)) {
       correctLetters.push(b.letter);
     }
+     b.isNotAllowed();
   }
 }
 

@@ -71,6 +71,7 @@ let titleTextBlocksStartMenu = [];
 let titleTextBlocksTopBar = [];
 let title = ["A", "D", "J", "A", "C", "E", "N", "T", "L", "Y"];
 let hintScreenShowing = false;
+let hint2ScreenShowing = false;
 let restartTxtRect;
 
 function restart() {
@@ -111,11 +112,15 @@ function restart() {
   hintBlocks = [];
   hintRevealed = false;
   hintChosen = false;
+  hint2Revealed = false;
+  hint2Chosen = false;
   showKeyboardHint = false;
-  hint = undefined;
+  hint1 = undefined,hint2=undefined;
   doneBlocks = [];
   hintScreenShown = false;
   hintScreenShowing = false;
+  hint2ScreenShown = false;
+  hint2ScreenShowing = false;
   shareScreenShowing = false;
 
 
