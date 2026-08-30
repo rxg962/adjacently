@@ -122,6 +122,7 @@ function restart() {
   hint2ScreenShown = false;
   hint2ScreenShowing = false;
   shareScreenShowing = false;
+  hintTime = 0, hint2Time = 0;
 
 
   for (let k of letterKeys) {
