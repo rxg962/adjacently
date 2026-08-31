@@ -87,7 +87,7 @@ function hint2Screen() {
   fill(255);
   rect(hintScreenX, hintScreenY, hintScreenW, hintScreenH, 20);
 
-  hintText();
+  hint2Text();
 
   if (!hint2Revealed) {
     if (hint2Button) hint2Button.show();
@@ -177,6 +177,14 @@ function hintText() {
   textAlign(CENTER, CENTER);
   textSize(width / 15);
   text("Need some help?", hintScreenX, hintTop);
+}
+
+function hint2Text() {
+  fill(0);
+  noStroke();
+  textAlign(CENTER, CENTER);
+  textSize(width / 15);
+  text("Need more help?", hintScreenX, hintTop);
 }
 
 function checkHint() {
