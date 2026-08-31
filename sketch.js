@@ -177,36 +177,5 @@ function draw() {
   
 }
 
-async function keyPressed() {
-  if (key == "g") {
-    inputArr.push("H");
-    inputArr.push("E");
-    inputArr.push("L");
-    inputArr.push("L");
-    inputArr.push("O");
-    newGuess();
-    checkIfWon();
-    checkIfLost();
-  }
-
-  if (key == "r") {
-    removeItem("data");
-    removeItem("todaysBoard");
-  }
-
-  if (key == "t") {
-    inputArr.push(target[0]);
-    inputArr.push(target[1]);
-    inputArr.push(target[2]);
-    inputArr.push(target[3]);
-    inputArr.push(target[4]);
-    newGuess();
-    checkIfWon();
-  }
-
-  if (key == "d") {
-    await getTodaysBoard();
-  }
-}
 
 
