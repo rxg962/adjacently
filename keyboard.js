@@ -13,19 +13,20 @@ class letterKey {
   }
 
   show() {
-    if (gamestate == "playing") {
-      if (!this.pressed && incorrectLetters.includes(this.letter)) {
-        this.state = "incorrect";
-        this.colour = greyC;
-      } else if (!this.pressed && correctLetters.includes(this.letter)) {
-        this.state = "correct";
-        this.colour = pinkC;
-      } else if (!this.pressed && showKeyboardHint  && this.letter == hint1 || this.letter == hint2 && showKeyboard2Hint) {
-        this.state = "correct";
-        this.colour = pinkC;
-      } else {
-        this.colour = lightblueC;
-      }
+   if (gamestate == "playing") {
+  if (!this.pressed && incorrectLetters.includes(this.letter)) {
+    this.state = "incorrect";
+    this.colour = greyC;
+  } else if (!this.pressed && correctLetters.includes(this.letter)) {
+    this.state = "correct";
+    this.colour = pinkC;
+  } else if (!this.pressed && ((showKeyboardHint && this.letter == hint1) || (showKeyboard2Hint && this.letter == hint2))) {
+    this.state = "correct";
+    this.colour = pinkC;
+  } else {
+    this.colour = lightblueC;
+  }
+
 
       if (this.pressed) {
         if (this.state == "default") {
