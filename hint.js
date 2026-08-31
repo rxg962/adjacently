@@ -69,6 +69,8 @@ function hintScreen() {
       setTimeout(() => {
         if (typeof hintScreenShowing !== 'undefined') {
           hintScreenShowing = false;
+          updateBlocksWithHint(hint1);
+          updateKeyColour();
         }
       }, 1000);
     }
@@ -117,11 +119,13 @@ function hint2Screen() {
         typeof pinkC !== 'undefined' ? pinkC : color(229, 90, 162)
       );
       hintLetterBlock.show();
-      showKeyboardHint = true;
+      showKeyboard2Hint = true;
 
       setTimeout(() => {
         if (typeof hint2ScreenShowing !== 'undefined') {
           hint2ScreenShowing = false;
+          updateBlocksWithHint(hint2);
+          updateKeyColour();
         }
       }, 1000);
     }
@@ -253,6 +257,21 @@ function getHint2Letter() {
     
     hint2Chosen = true;
     hint2Time = millis();
+  }
+}
+  
+
+function updateBlocksWithHint(hintLetter) {
+  if (!hintLetter) return;
+  
+  for (let b of blocks) {
+    // If the block matches the hint letter and isn't already matched
+    if (b.letter === hintLetter) {
+      b.matched = true;
+      if (typeof pinkC !== 'undefined') {
+        b.colour = pinkC; // Or whichever state variable controls block color
+      }
+    }
   }
 }
 
