@@ -23,7 +23,6 @@ function newGuess() {
     }
   }
   updateKeyColour();
-  updateKeyColour();
   inputArr = [];
 }
 
