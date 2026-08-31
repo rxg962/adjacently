@@ -127,7 +127,7 @@ function helpExampleTarget() {
 }
 
 function makeHelpTargetBlocks() {
-  let word = ["H", "E", "A", "R", "T"];
+  let word = ["W", "A", "T", "E", "R"];
   let blockCol = blueC;
   let textCol = color(255);
   let y = helpTop + (exampleblockY / heightDivider) * helpScreenH;
@@ -159,7 +159,7 @@ function helpAdjacentText() {
 function makeHelpAdjacentBlocks() {
   let y = helpTop + (adjacentblockY / heightDivider) * helpScreenH;
 
-  let word = ["G", "R", "A", "P", "E"];
+  let word = ["S", "W", "A", "M", "P"];
   let blockCol = color(255);
 
   helpBlocks.push(
@@ -199,15 +199,15 @@ function helpNotAdjacentText() {
 function makeHelpNotAdjacentBlocks() {
   let y = helpTop + (notadjacentblockY / heightDivider) * helpScreenH;
 
-  let word = ["B", "E", "R", "R", "Y"];
+  let word = ["O", "C", "E", "A", "N"];
   let blockCol = color(255);
 
   helpBlocks.push(
-    new HelpBlock(((0 + 2) * width) / 8, y, word[0], greyC, color(0))
+    new HelpBlock(((0 + 2) * width) / 8, y, word[0], blockCol, color(0))
   );
 
   helpBlocks.push(
-    new HelpBlock(((1 + 2) * width) / 8, y, word[1], blockCol, color(pinkC))
+    new HelpBlock(((1 + 2) * width) / 8, y, word[1], greyC, color(0))
   );
 
   helpBlocks.push(
@@ -215,23 +215,33 @@ function makeHelpNotAdjacentBlocks() {
   );
 
   helpBlocks.push(
-    new HelpBlock(((3 + 2) * width) / 8, y, word[3], blockCol, color(0))
+    new HelpBlock(((3 + 2) * width) / 8, y, word[3], blockCol, color(pinkC))
   );
 
   helpBlocks.push(
-    new HelpBlock(((4 + 2) * width) / 8, y, word[4], blockCol, color(0))
+    new HelpBlock(((4 + 2) * width) / 8, y, word[4], greyC, color(0))
   );
 }
 
 function helpNotTargetText() {
-  fill(greyC);
+  fill(pinkC);
   textAlign(CENTER, CENTER);
   textSize(longtxtsize);
   let txtTopBuffer = 0.75;
   textH = textAscent() + textDescent();
   text(
+    "Pink letters: IN target",
+    2*width / 6,
+    helpTop + (notintargettxtY / heightDivider) * helpScreenH
+  );
+  
+  fill(greyC);
+  textAlign(CENTER, CENTER);
+  textSize(longtxtsize);
+  textH = textAscent() + textDescent();
+  text(
     "Grey letters: NOT in target",
-    width / 2,
+    4*width / 6,
     helpTop + (notintargettxtY / heightDivider) * helpScreenH
   );
 }
@@ -239,7 +249,7 @@ function helpNotTargetText() {
 function makeHelpNotTargetBlocks() {
   let y = helpTop + (notintargetblockY / heightDivider) * helpScreenH;
 
-  let word = ["P", "E", "A", "C", "H"];
+  let word = ["C", "R", "E", "E", "K"];
   let blockCol = color(255);
 
   helpBlocks.push(
@@ -255,11 +265,11 @@ function makeHelpNotTargetBlocks() {
   );
 
   helpBlocks.push(
-    new HelpBlock(((3 + 2) * width) / 8, y, word[3], greyC, color(0))
+    new HelpBlock(((3 + 2) * width) / 8, y, word[3], blockCol, color(pinkC))
   );
 
   helpBlocks.push(
-    new HelpBlock(((4 + 2) * width) / 8, y, word[4], blockCol, color(0))
+    new HelpBlock(((4 + 2) * width) / 8, y, word[4], greyC, color(0))
   );
 }
 
@@ -295,7 +305,7 @@ function drawMatch2() {
   let cols = 10;
   let w = floor(width / cols);
   let d = w / 3;
-  let x = width / 2 - w / 2 - w / 8;
+  let x = width / 2 + w / 2 + w / 8;
   let y = helpTop + (notadjacentblockY / heightDivider) * helpScreenH;
   noStroke();
   for (let i = 0; i < d; i++) {
